@@ -1,0 +1,9 @@
+# Core dependencies for plot generation
+numpy>=1.20.0
+pandas>=2.0.0
+matplotlib>=3.5.0
+plotly>=5.0.0
+scipy>=1.7.0
+
+# Optional: for static image export from Plotly
+# kaleido>=0.2.0

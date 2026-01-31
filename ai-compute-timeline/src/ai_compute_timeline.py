@@ -5,63 +5,19 @@ Publication-quality semi-log timeline visualization
 """
 
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from matplotlib.lines import Line2D
+import os
 import re
 
-# Raw data
-data_raw = """Year	Event	Category	Compute_FLOPs	Parameters	Impact
-1904	Vacuum Tube (Fleming) - Enabled electronic switching for computing	Hardware	N/A	N/A	High
-1936	Turing Machine (Alan Turing) - Defined computability limits	Theoretical Foundation	N/A	N/A	Transformative
-1937	Shannon's Thesis - Boolean logic to electrical circuits (birth of the bit)	Theoretical Foundation	N/A	N/A	Transformative
-1945	ENIAC - First programmable electronic general-purpose computer	Hardware	Proxy: ~5e2 ops/sec	N/A	High
-1947	Transistor (Bell Labs) - Solid-state replacement for tubes	Hardware	N/A	N/A	Transformative
-1950	Turing's "Computing Machinery and Intelligence" - Turing Test proposed	Theoretical Foundation	N/A	N/A	High
-1956	Dartmouth Conference - "Artificial Intelligence" term coined; birth of AI field	AI Milestone	N/A	N/A	Transformative
-1957	Perceptron (Rosenblatt) - Early neural network hardware	Model Release	Proxy: low	N/A	High
-1958	Integrated Circuit (Kilby) - Multiple transistors on one chip	Hardware	N/A	N/A	Transformative
-1959	Arthur Samuel coins "Machine Learning"; self-improving checkers program	AI Milestone	Proxy: low	N/A	Medium
-1965	Moore's Law stated (Gordon Moore) - Transistor doubling prediction	Hardware	N/A	N/A	Transformative
-1969	ARPANET - Precursor to Internet; Shakey the Robot (first mobile planner)	Infrastructure;Robotics	Proxy: low	N/A	High
-1971	Intel 4004 - First commercial microprocessor	Hardware	N/A	N/A	High
-1973	First AI Winter begins (~1973-1980) - Funding cuts after overhype	AI Winter	N/A	N/A	Medium
-1986	Backpropagation revival (Rumelhart/Hinton) - Enabled multi-layer neural nets	Model/Architecture	N/A	N/A	High
-1987	Second AI Winter (~1987-1993) - Expert systems collapse	AI Winter	N/A	N/A	Medium
-1997	Deep Blue (IBM) - Brute-force chess victory over Kasparov	AI Milestone	Proxy: ~1e10 ops/sec	N/A	High
-2000	Honda ASIMO - Advanced humanoid walking (rule-based)	Robotics	N/A	N/A	Medium
-2002	Roomba (iRobot) - First mass-market autonomous home robot	Robotics	N/A	N/A	Medium
-2006	Hinton et al. rebrand "Deep Learning"; deep belief networks	Model/Architecture	N/A	N/A	High
-2006	AWS launch - Cloud computing infrastructure for scale	Infrastructure	N/A	N/A	Transformative
-2007	NVIDIA CUDA - GPUs enabled for general-purpose parallel computing	Hardware	N/A	N/A	Transformative
-2009	ImageNet dataset (Fei-Fei Li) - 14M+ labeled images fuel vision models	Dataset	N/A	N/A	Transformative
-2010	DeepMind founded - Goal to solve intelligence	AI Milestone	N/A	N/A	High
-2011	IBM Watson wins Jeopardy!; Siri launches (Apple)	AI Milestone	N/A	N/A	High
-2012	AlexNet - CNN crushes ImageNet; deep learning breakthrough	Model Release	6.00E+17	60M	Transformative
-2012	Google Cat Paper - Unsupervised learning from YouTube videos	Model Release	~1e16	N/A	High
-2013	Word2Vec (Google) - Semantic word embeddings	Model/Architecture	N/A	N/A	High
-2013	DeepMind DQN - Atari games from pixels (reinforcement learning)	Model Release	~1e15	N/A	High
-2014	GANs invented (Ian Goodfellow) - Generative adversarial networks	Model/Architecture	N/A	N/A	Transformative
-2015	OpenAI founded; TensorFlow open-sourced; ResNet (very deep nets)	AI Milestone;Model/Architecture	N/A	N/A	Transformative
-2016	AlphaGo (DeepMind) - Defeats Lee Sedol in Go	Model Release	~1e18	N/A	Transformative
-2017	Transformers paper ("Attention Is All You Need")	Model/Architecture	N/A	N/A	Transformative
-2018	GPT-1 (OpenAI); BERT (Google) - Transformer NLP advances	Model Release	~1e17-1e18	110M-340M	High
-2019	GPT-2 (OpenAI) - Emergent scaling behaviors	Model Release	~1e19	1.5B	High
-2020	GPT-3 (OpenAI) - 175B params; few-shot learning	Model Release	3.14E+23	175B	Transformative
-2020	AlphaFold (DeepMind) - Protein structure prediction breakthrough	Model Release	~1e20+	N/A	Transformative
-2021	DALL-E (OpenAI) - Text-to-image generation; Codex (early coding)	Generative	High compute	N/A	High
-2022	ChatGPT (based on GPT-3.5) - Mass adoption of conversational AI	Model Release	~few e23	N/A	Transformative
-2022	Stable Diffusion - Open-source diffusion model revolution	Generative	~1e20+	1B+	Transformative
-2023	GPT-4 (OpenAI) - Multimodal; major capability jump	Model Release	~2e25	N/A (est. trillions)	Transformative
-2023	Gemini 1.0 (Google); Grok-1 (xAI); Llama 2 (Meta open weights)	Model Release	1e24-1e25 range	N/A-70B	High
-2024	Sora (OpenAI video gen); Claude 3 family (Anthropic); o1 reasoning model	Generative;Reasoning/Agentic	2e25-5e25	N/A- hundreds B	Transformative
-2024	Gemini 1.5/2.0; Llama 3.1 405B (Meta); EU AI Act	Model Release;Regulation	4e25 (Llama 3.1 est.)	405B	High
-2025	Grok-3 (xAI) - Frontier reasoning model	Model Release	>1e26 (est.)	N/A	Transformative
-2025	o3 / Claude 4 family advances; Gemini 2.5/3; agentic tools scale (Devin etc.)	Reasoning/Agentic	1e26-5e26 range	N/A	High
-2025	Quantum error-correction milestones (e.g. Willow-like chips)	Quantum/Future Speculative	N/A	N/A	Medium
-2026	Agentic AI & recursive self-improvement loops emerge at scale	Reasoning/Agentic	Speculative 1e27+	N/A	Speculative High
-2026	Tesla Optimus production pivot; world models (Genie-like)	Robotics;Generative	Speculative	N/A	Speculative High
-2026	Omni-modal single models; recursive learning + infinite context	Speculative	Speculative 1e28+	N/A	Speculative Transformative"""
+
+def load_data():
+    """Load data from CSV file."""
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    csv_path = os.path.join(os.path.dirname(script_dir), 'data', 'ai_milestones.csv')
+    return pd.read_csv(csv_path)
 
 
 def parse_flops(value):
@@ -136,39 +92,22 @@ def get_primary_category(cat_str):
     return categories[0].strip()
 
 
-def parse_data(raw_data):
-    """Parse the raw data into structured format."""
-    lines = raw_data.strip().split('\n')
-    header = lines[0].split('\t')
-
+def parse_data(df):
+    """Parse DataFrame into structured format."""
     records = []
-    for line in lines[1:]:
-        parts = line.split('\t')
-        if len(parts) >= 5:
-            year_str = parts[0].strip()
-            # Handle years like "2026 (early)" or "2026 (future)"
-            year_match = re.match(r'(\d{4})', year_str)
-            if year_match:
-                year = int(year_match.group(1))
-                # Add small offset for multiple entries in same year
-                if '(early)' in year_str:
-                    year += 0.2
-                elif '(future)' in year_str:
-                    year += 0.5
-            else:
-                continue
-
-            record = {
-                'year': year,
-                'event': parts[1].strip(),
-                'category': parts[2].strip(),
-                'flops_raw': parts[3].strip(),
-                'parameters': parts[4].strip() if len(parts) > 4 else 'N/A',
-                'impact': parts[5].strip() if len(parts) > 5 else 'Medium'
-            }
-            record['flops'] = parse_flops(record['flops_raw'])
-            record['primary_category'] = get_primary_category(record['category'])
-            records.append(record)
+    for _, row in df.iterrows():
+        year = int(row['Year'])
+        record = {
+            'year': year,
+            'event': str(row['Event']),
+            'category': str(row['Category']),
+            'flops_raw': str(row['Compute_FLOPs']),
+            'parameters': str(row['Parameters']) if pd.notna(row['Parameters']) else 'N/A',
+            'impact': str(row['Impact']) if pd.notna(row['Impact']) else 'Medium'
+        }
+        record['flops'] = parse_flops(record['flops_raw'])
+        record['primary_category'] = get_primary_category(record['category'])
+        records.append(record)
 
     return records
 
@@ -525,29 +464,33 @@ def create_timeline_plot(records):
 
 
 def main():
-    # Parse data
-    records = parse_data(data_raw)
+    # Determine output directory
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    output_dir = os.path.join(os.path.dirname(script_dir), 'output')
+    os.makedirs(output_dir, exist_ok=True)
+
+    # Load and parse data
+    df = load_data()
+    records = parse_data(df)
     print(f"Parsed {len(records)} records")
 
     # Create plot
     fig, ax = create_timeline_plot(records)
 
     # Save outputs
-    fig.savefig('/Users/mschwar/ai_compute_timeline.png', dpi=300, bbox_inches='tight',
-                facecolor='white', edgecolor='none')
+    fig.savefig(os.path.join(output_dir, 'ai_compute_timeline.png'), dpi=300,
+                bbox_inches='tight', facecolor='white', edgecolor='none')
     print("Saved: ai_compute_timeline.png (300 DPI)")
 
-    fig.savefig('/Users/mschwar/ai_compute_timeline.svg', format='svg', bbox_inches='tight',
-                facecolor='white', edgecolor='none')
+    fig.savefig(os.path.join(output_dir, 'ai_compute_timeline.svg'), format='svg',
+                bbox_inches='tight', facecolor='white', edgecolor='none')
     print("Saved: ai_compute_timeline.svg")
 
-    # Also save a high-res version
-    fig.savefig('/Users/mschwar/ai_compute_timeline_highres.png', dpi=400, bbox_inches='tight',
-                facecolor='white', edgecolor='none')
+    fig.savefig(os.path.join(output_dir, 'ai_compute_timeline_highres.png'), dpi=400,
+                bbox_inches='tight', facecolor='white', edgecolor='none')
     print("Saved: ai_compute_timeline_highres.png (400 DPI)")
 
-    plt.show()
-    print("\nDone! Chart displayed and saved.")
+    print("\nDone!")
 
 
 if __name__ == '__main__':

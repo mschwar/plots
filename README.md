@@ -131,17 +131,31 @@ Each plot follows a standardized structure:
 
 ---
 
-## Regenerating Plots
+## Development
+
+### Install dependencies
 
 ```bash
-pip install matplotlib pandas plotly numpy
+pip install -r requirements.txt
+```
 
-# Regenerate a specific plot
+### Regenerate all plots
+
+```bash
+python build_all.py
+```
+
+### Regenerate a specific plot
+
+```bash
 cd <plot-name>/src
 python <slug>.py           # Static PNG/SVG
 python <slug>_plotly.py    # Interactive HTML
+```
 
-# Validate all plots
+### Validate all plots
+
+```bash
 python scripts/validate_all.py
 ```
 
