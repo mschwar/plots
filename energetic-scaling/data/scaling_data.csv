@@ -1,0 +1,16 @@
+Category,Group,Entity,Body_Mass_kg_or_Compute_Scale,Neurons_Total_or_Efficiency_Metric,Neurons_per_kg_or_CPS_per_Dollar,Impact,Notes
+Biology,Reptiles,Crocodile (90kg example),90,8.3e7,9.22e5,Low,Low neuron density; ~20x fewer than birds/mammals same size
+Biology,Birds,Goldcrest (smallest bird),0.0045,1.64e8,3.64e10,High,High density outlier in small birds
+Biology,Birds,Corvid/Rook (example),0.5,2e9,4e9,High,Primate-like neuron counts in forebrain
+Biology,Mammals,Mouse,0.02,7.1e7,3.55e9,Medium,Rodent baseline; hyperscaling mass
+Biology,Mammals,Elephant,4000,2.57e11,6.43e7,High,Large absolute but low per kg
+Biology,Primates,Human,70,8.6e10,1.23e9,Transformative,Outlier EQ~7; 86B neurons
+Biology,Primates,Marmoset (small primate),0.3,1.4e9,4.67e9,High,Linear scaling in primates
+Tech,Hardware,Zeus II 1939 (Kurzweil),1939,6.5e-6,6.5e-6,Low,Early baseline; 0.00007 cps/$
+Tech,Hardware,ENIAC 1945,1945,1e-4,1e-4,Medium,Vacuum tube era
+Tech,Hardware,Intel 4004 1971,1971,10,10,High,Microprocessor start
+Tech,Hardware,NVIDIA B200 2024,2024,5e11,5e11,Transformative,Half trillion cps/$; 75 quadrillion-fold increase
+Tech,AI,AlexNet 2012,2012,6e17,6e17,High,Deep learning breakthrough (FLOPs proxy)
+Tech,AI,GPT-3 2020,2020,3.14e23,3.14e23,High,Scaling era (FLOPs proxy)
+Tech,AI,Grok-4 2026 est,2026,5e26,5e26,Transformative,Frontier; aligns Kurzweil projections
+LHT,Foragers,Ache/Tsimane peak (midlife male),45,9240,9240,High,Skill-based foraging funds brain/kids; Kaplan/Charnov (age ~45; kcal/day)

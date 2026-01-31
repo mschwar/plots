@@ -1,11 +1,12 @@
 # Plots
 
-Interactive timelines of exponential tech progress – showing growth + compression enabling modern AI.
+Interactive timelines of exponential tech progress – showing growth, compression, and scaling laws enabling modern AI.
 
 ## Quick Links
 
-- [AI Compute Timeline (Interactive – Hover/Zoom)](ai-compute-timeline/output/ai_compute_timeline_interactive.html)
-- [Accelerating Paradigms (Interactive – Hover/Zoom)](adoption-timeline/output/adoption_timeline_interactive.html)
+- [AI Compute Timeline (Interactive)](ai-compute-timeline/output/ai_compute_timeline_interactive.html)
+- [Adoption Timeline (Interactive)](adoption-timeline/output/adoption_timeline_interactive.html)
+- [Energetic Scaling (Interactive)](energetic-scaling/output/energetic_scaling_interactive.html)
 
 ---
 
@@ -37,18 +38,34 @@ Time to ~50M users adoption – shows exponential compression from years to days
 
 ---
 
+## 3. Energetic Scaling: Biology vs. Technology (NEW)
+
+Neural efficiency vs. body size (Biology) and compute efficiency vs. time (Tech) – both reveal power laws.
+
+- **Interactive**: [View Full Interactive Version (Plotly – Hover/Zoom)](energetic-scaling/output/energetic_scaling_interactive.html)
+- **Static**: [PNG](energetic-scaling/output/energetic_scaling_highres.png) | [SVG](energetic-scaling/output/energetic_scaling.svg)
+- **Details**: [energetic-scaling/](energetic-scaling/)
+
+![Energetic Scaling](energetic-scaling/output/energetic_scaling_highres.png)
+
+*Humans are the biological outlier (EQ~7); AI is the technological outlier (75 quadrillion-fold compute/$ since 1939).*
+
+---
+
 ## Why These Plots?
 
 | Timeline | Shows | Trend |
 |----------|-------|-------|
 | **Compute** | Training FLOPs (10⁰ → 10²⁷) | Exponential **growth** ↑ |
 | **Adoption** | Time to 50M users | Exponential **compression** ↓ |
+| **Energetic** | Neurons/kg & cps/$ | **Power laws** (log-log linear) |
 
 Together they illustrate:
 - **Compute**: Raw exponential growth enabling AI scale
 - **Adoption**: Ecosystem acceleration compressing timelines
+- **Energetic**: Fundamental scaling rules – humans and AI as outliers
 
-Inspired by Kurzweil, [Epoch AI](https://epochai.org/), [Statista](https://www.statista.com/), [Asymco](http://www.asymco.com/).
+Inspired by Kurzweil, [Epoch AI](https://epochai.org/), [Statista](https://www.statista.com/), [Asymco](http://www.asymco.com/), Herculano-Houzel (neuronal scaling), Kleiber (metabolic 0.75).
 
 ---
 

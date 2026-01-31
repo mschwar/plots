@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energetic Scaling – Biology vs. Technology</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: #fafafa;
+            color: #333;
+            line-height: 1.6;
+        }
+        .breadcrumb { font-size: 0.9rem; margin-bottom: 1rem; }
+        .breadcrumb a { color: #2563eb; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        h1 { font-size: 2rem; margin-bottom: 0.5rem; color: #1a1a1a; }
+        .subtitle { font-size: 1.1rem; color: #666; margin-bottom: 1.5rem; }
+        .main-image {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin: 1.5rem 0;
+        }
+        .links {
+            display: flex; gap: 1.5rem; flex-wrap: wrap;
+            margin: 1.5rem 0; padding: 1rem;
+            background: white; border-radius: 8px;
+        }
+        .links a { color: #2563eb; text-decoration: none; font-weight: 500; }
+        .links a:hover { text-decoration: underline; }
+        .highlight {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .companion {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border: 1px solid #86efac;
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .companion strong { color: #166534; }
+        .companion a { color: #166534; font-weight: 500; }
+        .description { background: white; padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0; }
+        .description h2 { margin-top: 0; font-size: 1.3rem; }
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        th, td { padding: 0.5rem; text-align: left; border-bottom: 1px solid #eee; }
+        th { background: #f5f5f5; }
+        footer {
+            margin-top: 3rem; text-align: center; font-size: 0.9rem;
+            color: #666; padding: 1.5rem; border-top: 1px solid #ddd;
+        }
+        footer a { color: #2563eb; text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="breadcrumb">
+        <a href="../">← Back to Plots</a>
+    </div>
+
+    <h1>Energetic Scaling: Biology vs. Technology</h1>
+    <p class="subtitle">Neural efficiency vs. body size (Biology) and compute efficiency vs. time (Tech) – both reveal power laws</p>
+    <p style="font-size: 0.95rem; color: #666; font-style: italic;">Companion to <a href="../ai-compute-timeline/">AI Compute Timeline</a> and <a href="../adoption-timeline/">Adoption Timeline</a> – showing the fundamental scaling rules behind exponential progress.</p>
+
+    <a href="output/energetic_scaling_interactive.html">
+        <img src="output/energetic_scaling_highres.png" alt="Energetic Scaling" class="main-image">
+    </a>
+
+    <div class="links">
+        <a href="output/energetic_scaling_interactive.html">🖱️ View Full Interactive Version (Plotly – Hover/Zoom)</a>
+        <a href="output/energetic_scaling_highres.png">📷 High-res PNG</a>
+        <a href="output/energetic_scaling.svg">📐 SVG Vector</a>
+        <a href="data/scaling_data.csv">📊 Source Data (CSV)</a>
+    </div>
+
+    <div class="highlight">
+        <strong>💡 Key Insight:</strong> Log-log plots reveal power laws (straight lines = scaling rules). Humans are the biological outlier (EQ~7); AI is the technological outlier (75 quadrillion-fold compute/$ increase since 1939).
+    </div>
+
+    <div class="description">
+        <h2>Dual-Panel Comparison</h2>
+        <div class="two-col">
+            <div>
+                <h3>Left: Biological Allometry</h3>
+                <ul>
+                    <li><strong>X-axis:</strong> Body mass (kg)</li>
+                    <li><strong>Y-axis:</strong> Neurons per kg</li>
+                    <li><strong>Pattern:</strong> Endotherms (birds/mammals) ~20x more neurons than reptiles</li>
+                    <li><strong>Outlier:</strong> Human – 86B neurons, EQ~7</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Right: Tech Scaling</h3>
+                <ul>
+                    <li><strong>X-axis:</strong> Year (1939–2026)</li>
+                    <li><strong>Y-axis:</strong> Compute per dollar (cps/$)</li>
+                    <li><strong>Pattern:</strong> Kurzweil exponential (~2x/year)</li>
+                    <li><strong>Outlier:</strong> AI FLOPs explosion post-2012</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>Selected Data Points</h2>
+        <table>
+            <tr><th>Entity</th><th>Domain</th><th>Key Metric</th><th>Notes</th></tr>
+            <tr><td>Human</td><td>Biology</td><td>86B neurons, 1.2×10⁹/kg</td><td>EQ~7 outlier</td></tr>
+            <tr><td>Goldcrest (bird)</td><td>Biology</td><td>3.6×10¹⁰ neurons/kg</td><td>Highest density</td></tr>
+            <tr><td>Elephant</td><td>Biology</td><td>257B neurons, 6.4×10⁷/kg</td><td>Large absolute, low density</td></tr>
+            <tr><td>NVIDIA B200 2024</td><td>Tech</td><td>5×10¹¹ cps/$</td><td>75 quadrillion-fold since 1939</td></tr>
+            <tr><td>GPT-3 2020</td><td>AI</td><td>3.14×10²³ FLOPs</td><td>Scaling era begins</td></tr>
+        </table>
+    </div>
+
+    <div class="companion">
+        <strong>See companion plots:</strong>
+        <a href="../ai-compute-timeline/">AI Compute Timeline</a> (FLOPs growth) |
+        <a href="../adoption-timeline/">Adoption Timeline</a> (time compression)
+        — Together showing how scaling laws drive exponential progress.
+    </div>
+
+    <div class="description">
+        <h2>Data Sources</h2>
+        <ul>
+            <li><strong>Neuronal scaling:</strong> Herculano-Houzel et al. (comparative neuroanatomy)</li>
+            <li><strong>Metabolic scaling:</strong> Kleiber's Law (0.75 exponent)</li>
+            <li><strong>Life History Theory:</strong> Kaplan, Charnov (Ache/Tsimane forager data)</li>
+            <li><strong>Tech price-performance:</strong> Kurzweil (2024 update)</li>
+            <li><strong>AI FLOPs:</strong> Epoch AI, scaling reports</li>
+        </ul>
+    </div>
+
+    <footer>
+        <p>
+            Sources in <a href="https://github.com/mschwar/plots/tree/main/energetic-scaling">README</a> |
+            Built with Plotly & Python |
+            <a href="https://github.com/mschwar/plots">GitHub Repo</a> |
+            MIT License | Last updated Jan 2026
+        </p>
+    </footer>
+</body>
+</html>
