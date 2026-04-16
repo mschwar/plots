@@ -46,6 +46,12 @@ Year,Event,Category,Compute_FLOPs,Parameters,Impact
 2025,Grok-3 (xAI) - Frontier reasoning model,Model Release,>1e26 (est.),N/A,Transformative
 2025,o3 / Claude 4 family advances; Gemini 2.5/3; agentic tools scale (Devin etc.),Reasoning/Agentic,1e26-5e26 range,N/A,High
 2025,Quantum error-correction milestones (e.g. Willow-like chips),Quantum/Future Speculative,N/A,N/A,Medium
+2025,LLaMA 4 Scout (Meta) - 109B MoE open-weights model,Model Release,4e25 (est.),109B total / 17B active,High
+2026,Gemini 3.1 Pro (Google) - 77.1% ARC-AGI-2; 2× prior gen; 1M context,Model Release,Speculative 1e26-5e26,N/A (est. ~2T),Transformative
+2026,GPT-5.4 (OpenAI) - Released Mar 5 2026; native multimodal; 1M context,Model Release,Speculative 1e26,N/A (est. ~600B),High
+2026,Claude Opus 4.7 (Anthropic) - 87.6% SWE-bench Verified; released Apr 16 2026,Reasoning/Agentic,Speculative 1e26,N/A (est. ~800B),Transformative
+2026,Claude Mythos Preview (Anthropic) - Invite-only; 73% expert cyber tasks; inflection point,Reasoning/Agentic,Speculative 2e26+,N/A (est. ~3T),Speculative Transformative
+2026,GPT Spud / GPT-5.5 (OpenAI) - Pretraining complete Mar 24 2026; in safety eval; ~5-6T MoE,Model Release,Speculative 5e27+,N/A (est. ~5T),Speculative Transformative
 2026,Agentic AI & recursive self-improvement loops emerge at scale,Reasoning/Agentic,Speculative 1e27+,N/A,Speculative High
 2026,Tesla Optimus production pivot; world models (Genie-like),Robotics;Generative,Speculative,N/A,Speculative High
 2026,Omni-modal single models; recursive learning + infinite context,Speculative,Speculative 1e28+,N/A,Speculative Transformative

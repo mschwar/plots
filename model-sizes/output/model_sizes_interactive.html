@@ -29,25 +29,22 @@
   .subtitle {
     color: #6b7280;
     font-size: 0.9rem;
-    margin-bottom: 36px;
+    margin-bottom: 28px;
   }
   #chart-container {
     width: 100%;
     max-width: 1100px;
     position: relative;
   }
-  svg { overflow: visible; }
-  .grid line {
-    stroke: #1e2030;
-    stroke-dasharray: 3 4;
-  }
+  svg { overflow: visible; display: block; }
+  .grid line { stroke: #1e2030; stroke-dasharray: 3 4; }
   .grid path { stroke: none; }
   .axis text { fill: #6b7280; font-size: 12px; }
   .axis path, .axis line { stroke: #2d3148; }
   .axis-label { fill: #9ca3af; font-size: 13px; font-weight: 500; }
   .dot {
     cursor: pointer;
-    transition: r 0.15s, opacity 0.15s;
+    transition: r 0.15s, opacity 0.2s;
   }
   .dot:hover { opacity: 1 !important; }
   .dot.estimated {
@@ -60,9 +57,11 @@
     fill: #d1d5db;
     pointer-events: none;
     font-weight: 500;
+    transition: opacity 0.2s;
   }
+  .dot-ring { transition: opacity 0.2s; }
   .tooltip {
-    position: absolute;
+    position: fixed;
     background: #1c1f2e;
     border: 1px solid #2d3148;
     border-radius: 10px;
@@ -73,6 +72,7 @@
     transition: opacity 0.15s;
     max-width: 240px;
     box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    z-index: 100;
   }
   .tooltip strong { font-size: 14px; display: block; margin-bottom: 4px; }
   .tooltip .param { font-size: 18px; font-weight: 700; margin: 4px 0; }
@@ -101,11 +101,7 @@
     font-size: 13px;
     color: #9ca3af;
   }
-  .legend-dot {
-    width: 12px; height: 12px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
+  .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
   .legend-est {
     display: flex;
     align-items: center;
@@ -121,13 +117,6 @@
     background: rgba(107,114,128,0.2);
     flex-shrink: 0;
   }
-  .trend-line {
-    fill: none;
-    stroke: #a78bfa;
-    stroke-width: 1.5;
-    stroke-dasharray: 6 4;
-    opacity: 0.25;
-  }
   .era-label {
     fill: #374151;
     font-size: 11px;
@@ -135,14 +124,124 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
+
+  /* Filter bar */
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-bottom: 10px;
+    padding: 0 2px;
+    align-items: center;
+  }
+  .filter-bar-label {
+    font-size: 11px;
+    color: #4b5563;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-right: 2px;
+  }
+  .filter-pill {
+    background: transparent;
+    border-radius: 20px;
+    padding: 3px 11px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: inherit;
+    outline: none;
+    transition: background 0.15s, opacity 0.15s;
+    line-height: 1.6;
+  }
+  .filter-pill-all {
+    border: 1px solid #4b5563;
+    color: #9ca3af;
+  }
+  .filter-pill-all.active {
+    background: #ffffff15;
+    color: #d1d5db;
+  }
+
+  /* Toggles */
+  .toggles-bar {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 14px;
+    padding: 0 2px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #6b7280;
+    user-select: none;
+  }
+  .toggle-label:hover { color: #9ca3af; }
+  .toggle-switch {
+    position: relative;
+    width: 34px;
+    height: 19px;
+    flex-shrink: 0;
+  }
+  .toggle-switch input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .toggle-slider {
+    position: absolute;
+    inset: 0;
+    background: #2d3148;
+    border-radius: 19px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .toggle-slider:before {
+    content: "";
+    position: absolute;
+    width: 13px; height: 13px;
+    left: 3px; top: 3px;
+    background: #6b7280;
+    border-radius: 50%;
+    transition: transform 0.2s, background 0.2s;
+  }
+  .toggle-switch input:checked + .toggle-slider { background: #3b2d5e; }
+  .toggle-switch input:checked + .toggle-slider:before {
+    transform: translateX(15px);
+    background: #a78bfa;
+  }
+
+  @media (max-width: 600px) {
+    .label { display: none; }
+    h1 { font-size: 1.4rem; }
+    .subtitle { font-size: 0.8rem; }
+    .filter-pill { font-size: 11px; padding: 2px 8px; }
+  }
 </style>
 </head>
 <body>
 <h1>Large Language Model Scale Over Time</h1>
 <p class="subtitle">Parameter counts from 2019 – 2026 &nbsp;·&nbsp; Log scale &nbsp;·&nbsp; Dashed circles = estimated &nbsp;·&nbsp; ✦ = not yet released</p>
+
 <div id="chart-container">
-  <div class="tooltip" id="tooltip"></div>
+  <div id="filter-bar" class="filter-bar"></div>
+  <div class="toggles-bar">
+    <label class="toggle-label">
+      <span class="toggle-switch">
+        <input type="checkbox" id="hide-estimated">
+        <span class="toggle-slider"></span>
+      </span>
+      Hide estimated
+    </label>
+    <label class="toggle-label">
+      <span class="toggle-switch">
+        <input type="checkbox" id="hide-unreleased">
+        <span class="toggle-slider"></span>
+      </span>
+      Hide unreleased
+    </label>
+  </div>
 </div>
+<div class="tooltip" id="tooltip"></div>
 <div class="legend" id="legend"></div>
 <div style="display:flex;justify-content:center;gap:28px;margin-top:10px;flex-wrap:wrap;">
   <div class="legend-est">
@@ -205,7 +304,7 @@ const models = [
   { name: "DeepSeek V3",   date: "2024-12-26", params: 671,  org: "DeepSeek",  estimated: false, note: "671B MoE, 37B active" },
   { name: "DeepSeek R1",   date: "2025-01-20", params: 671,  org: "DeepSeek",  estimated: false, note: "Reasoning model, open weights" },
 
-  // 2026 frontier models (no official param counts disclosed)
+  // 2025–2026 frontier models
   { name: "Claude Opus 4.6",   date: "2025-09-15", params: 700,  org: "Anthropic", estimated: true, note: "~700B estimated · $5/$25 per 1M tokens · 1M context" },
   { name: "GPT-5.4",           date: "2026-03-05", params: 600,  org: "OpenAI",    estimated: true, note: "~600B estimated · Released Mar 5, 2026 · 1M context · native multimodal" },
   { name: "Gemini 3.1 Pro",    date: "2026-02-19", params: 2000, org: "Google",    estimated: true, note: "~2T estimated · 77.1% ARC-AGI-2 (2× prev gen) · 1M context · released Feb 19, 2026" },
@@ -228,15 +327,65 @@ const orgColors = {
   "DeepSeek":   "#38bdf8",
 };
 
-const margin = { top: 30, right: 60, bottom: 60, left: 90 };
-const width  = Math.min(1060, window.innerWidth - 40) - margin.left - margin.right;
-const height = 540;
+const orgs = [...new Set(models.map(d => d.org))];
 
-const svg = d3.select("#chart-container")
-  .insert("svg", ":first-child")
-  .attr("width",  width  + margin.left + margin.right)
-  .attr("height", height + margin.top  + margin.bottom)
-  .append("g")
+// ── Filter state ──────────────────────────────────────────────
+const filterState = new Set(orgs);
+let hideEstimated = false;
+let hideUnreleased = false;
+
+// ── Build filter pill bar ─────────────────────────────────────
+const filterBarEl = d3.select("#filter-bar");
+filterBarEl.append("span").attr("class", "filter-bar-label").text("Filter:");
+
+filterBarEl.append("button")
+  .attr("class", "filter-pill filter-pill-all active")
+  .text("All")
+  .on("click", () => {
+    orgs.forEach(o => filterState.add(o));
+    updateFilter();
+  });
+
+orgs.forEach(org => {
+  const color = orgColors[org] || "#9ca3af";
+  filterBarEl.append("button")
+    .attr("class", "filter-pill")
+    .attr("data-org", org)
+    .style("border", `1px solid ${color}`)
+    .style("color", color)
+    .text(org)
+    .on("click", function() {
+      const o = this.getAttribute("data-org");
+      if (filterState.has(o)) filterState.delete(o);
+      else filterState.add(o);
+      updateFilter();
+    });
+});
+
+// ── Toggle listeners ──────────────────────────────────────────
+document.getElementById("hide-estimated").addEventListener("change", function() {
+  hideEstimated = this.checked;
+  updateFilter();
+});
+document.getElementById("hide-unreleased").addEventListener("change", function() {
+  hideUnreleased = this.checked;
+  updateFilter();
+});
+
+// ── Chart setup ───────────────────────────────────────────────
+const margin = { top: 30, right: 60, bottom: 60, left: 90 };
+const width  = 910;
+const height = 540;
+const totalW = width + margin.left + margin.right;   // 1060
+const totalH = height + margin.top  + margin.bottom; // 630
+
+const svgRoot = d3.select("#chart-container")
+  .append("svg")
+  .attr("width", "100%")
+  .attr("viewBox", `0 0 ${totalW} ${totalH}`)
+  .attr("preserveAspectRatio", "xMidYMid meet");
+
+const svg = svgRoot.append("g")
   .attr("transform", `translate(${margin.left},${margin.top})`);
 
 const parseDate = d3.timeParse("%Y-%m-%d");
@@ -273,28 +422,36 @@ eras.forEach(e => {
     .text(e.label);
 });
 
+// Year grid lines (Jan 1 each year — task 3D)
+const yearTicks = d3.timeYear.range(new Date("2019-01-01"), new Date("2027-01-01"));
+yearTicks.forEach(yr => {
+  svg.append("line")
+    .attr("x1", xScale(yr)).attr("x2", xScale(yr))
+    .attr("y1", 0).attr("y2", height)
+    .attr("stroke", "#1c1f2e")
+    .attr("stroke-width", 1);
+});
+
 // Grid
 svg.append("g").attr("class", "grid")
   .call(d3.axisLeft(yScale).tickValues([1,10,100,1000,10000]).tickSize(-width).tickFormat(""));
 
 // Axes
-const xAxis = d3.axisBottom(xScale)
-  .ticks(d3.timeYear.every(1))
-  .tickFormat(d3.timeFormat("%Y"));
-
 svg.append("g")
   .attr("class", "axis")
   .attr("transform", `translate(0,${height})`)
-  .call(xAxis);
+  .call(
+    d3.axisBottom(xScale)
+      .tickValues(yearTicks)
+      .tickFormat(d3.timeFormat("%Y"))
+  );
 
-const yAxis = d3.axisLeft(yScale)
-  .tickValues([1, 10, 100, 1000, 10000])
-  .tickFormat(d => {
-    if (d >= 1000) return d/1000 + "T";
-    return d + "B";
-  });
-
-svg.append("g").attr("class", "axis").call(yAxis);
+svg.append("g").attr("class", "axis")
+  .call(
+    d3.axisLeft(yScale)
+      .tickValues([1, 10, 100, 1000, 10000])
+      .tickFormat(d => d >= 1000 ? d/1000 + "T" : d + "B")
+  );
 
 // Axis labels
 svg.append("text")
@@ -307,12 +464,12 @@ svg.append("text")
 svg.append("text")
   .attr("class", "axis-label")
   .attr("text-anchor", "middle")
-  .attr("transform", `rotate(-90)`)
+  .attr("transform", "rotate(-90)")
   .attr("x", -height / 2)
   .attr("y", -68)
   .text("Parameters (log scale)");
 
-// Vertical reference: ChatGPT
+// ChatGPT reference line
 svg.append("line")
   .attr("x1", xScale(new Date("2022-11-30")))
   .attr("x2", xScale(new Date("2022-11-30")))
@@ -327,54 +484,55 @@ svg.append("text")
   .attr("font-size", "11px")
   .text("ChatGPT");
 
-// Points
-const tooltip = d3.select("#tooltip");
-
+// ── Label offsets (task 3C: collision fixes marked) ───────────
 const labelOffsets = {
-  "GPT-2":          [-5, -14],
-  "GPT-3":          [8,  4],
-  "GPT-3.5":        [-50, -14],
-  "GPT-4":          [8,  4],
-  "GPT-4o":         [8,  4],
-  "GPT-4o mini":    [8, -14],
-  "o1":             [8,  4],
-  "PaLM":           [-44, -14],
-  "Chinchilla":     [8, 4],
-  "PaLM 2":         [8, -14],
-  "Gemini Ultra":   [-90, 14],
-  "Gemini 1.5 Pro": [8, 4],
-  "Gemini 2.0 Flash":[8, -14],
-  "LLaMA 1 (65B)":  [8, 4],
-  "LLaMA 2 (70B)":  [8, 14],
-  "LLaMA 3 (70B)":  [8, -14],
-  "LLaMA 3.1 405B": [8, 4],
-  "LLaMA 4 Scout":  [8, 14],
-  "Claude 2":       [-60, 14],
-  "Claude 3 Opus":  [-80, 14],
-  "Claude 3.5 Sonnet": [8, -14],
-  "Claude 3.7 Sonnet": [8, 14],
-  "Mistral 7B":     [8, 4],
-  "Mixtral 8×7B":   [8, 4],
-  "Mixtral 8×22B":  [8, -14],
-  "Grok 1":         [8, -14],
-  "BLOOM":          [-52, -14],
-  "GPT-NeoX-20B":   [8, 4],
-  "Megatron-Turing":[-10, -14],
-  "Qwen2.5 72B":    [8, -14],
-  "DeepSeek V3":    [8, 4],
-  "DeepSeek R1":    [8, 18],
-  "Claude Opus 4.6":   [8, 4],
-  "Claude Opus 4.7":   [8, 16],
-  "Claude Mythos":     [-100, -14],
-  "Gemini 3.1 Pro":    [8, -14],
-  "GPT-5.4":           [8, 4],
-  "GPT Spud ✦":        [8, 4],
+  "GPT-2":             [-5,  -14],
+  "GPT-3":             [8,    4],
+  "GPT-3.5":           [-50, -14],
+  "GPT-4":             [8,    4],
+  "GPT-4o":            [8,    4],
+  "GPT-4o mini":       [8,  -14],
+  "o1":                [8,    4],
+  "PaLM":              [-44, -14],
+  "Chinchilla":        [8,    4],
+  "PaLM 2":            [8,  -14],
+  "Gemini Ultra":      [-90,  14],
+  "Gemini 1.5 Pro":    [8,    4],
+  "Gemini 2.0 Flash":  [8,  -14],
+  "LLaMA 1 (65B)":     [8,  -14],  // was [8,4] — moved above to clear LLaMA 2
+  "LLaMA 2 (70B)":     [8,   16],
+  "LLaMA 3 (70B)":     [8,  -14],
+  "LLaMA 3.1 405B":    [8,    4],
+  "LLaMA 4 Scout":     [8,   14],
+  "Claude 2":          [-60,  14],
+  "Claude 3 Opus":     [-80,  14],
+  "Claude 3.5 Sonnet": [8,  -14],
+  "Claude 3.7 Sonnet": [8,   14],
+  "Mistral 7B":        [8,    4],
+  "Mixtral 8×7B":      [8,    4],
+  "Mixtral 8×22B":     [8,  -14],
+  "Grok 1":            [8,  -14],
+  "BLOOM":             [-52, -14],
+  "GPT-NeoX-20B":      [8,    4],
+  "Megatron-Turing":   [-10, -14],
+  "Qwen2.5 72B":       [8,  -14],
+  "DeepSeek V3":       [8,  -12],  // was [8,4] — moved above to clear R1
+  "DeepSeek R1":       [-90,  18], // was [8,18] — moved left-below
+  "Claude Opus 4.6":   [8,    4],
+  "GPT-5.4":           [8,  -14],  // was [8,4] — moved above to clear Opus 4.7
+  "Claude Opus 4.7":   [8,   20],  // pushed further below
+  "Claude Mythos":     [-100,-14],
+  "Gemini 3.1 Pro":    [8,  -14],
+  "GPT Spud ✦":        [8,    4],
 };
 
 function formatParams(p) {
-  if (p >= 1000) return (p/1000).toFixed(p%1000===0?0:2) + " trillion";
+  if (p >= 1000) return (p/1000).toFixed(p % 1000 === 0 ? 0 : 2) + " trillion";
   return p + " billion";
 }
+
+// ── Draw points + labels ──────────────────────────────────────
+const tooltip = d3.select("#tooltip");
 
 models.forEach(d => {
   const x = xScale(d.dateObj);
@@ -383,10 +541,10 @@ models.forEach(d => {
   const r = d.estimated ? 7 : 8;
 
   if (d.unreleased) {
-    // Pulsing outer ring for unreleased models
     svg.append("circle")
       .datum(d)
       .attr("cx", x).attr("cy", y).attr("r", r + 5)
+      .attr("class", "dot-ring")
       .attr("fill", "none")
       .attr("stroke", color)
       .attr("stroke-width", 1)
@@ -426,6 +584,7 @@ models.forEach(d => {
 
   const [dx, dy] = labelOffsets[d.name] || [8, 4];
   svg.append("text")
+    .datum(d)
     .attr("class", "label")
     .attr("x", x + dx)
     .attr("y", y + dy)
@@ -436,29 +595,62 @@ models.forEach(d => {
 
 function showTip(event, d) {
   const color = orgColors[d.org] || "#9ca3af";
-  tooltip.style("opacity", 1)
-    .html(`
-      <strong style="color:${color}">${d.name}</strong>
-      <div class="param" style="color:${color}">${formatParams(d.params)}</div>
-      <div class="meta">
-        <b>Org:</b> ${d.org}<br>
-        <b>Released:</b> ${d3.timeFormat("%B %Y")(d.dateObj)}
-        ${d.note ? `<br>${d.note}` : ""}
-      </div>
-      ${d.unreleased ? '<div class="est-badge" style="background:#1a2035;color:#60a5fa;border-color:#2d4a80">not yet released</div>' : ""}
-      ${d.estimated && !d.unreleased ? '<div class="est-badge">estimated</div>' : ""}
-    `);
+  tooltip.style("opacity", 1).html(`
+    <strong style="color:${color}">${d.name}</strong>
+    <div class="param" style="color:${color}">${formatParams(d.params)}</div>
+    <div class="meta">
+      <b>Org:</b> ${d.org}<br>
+      <b>Released:</b> ${d3.timeFormat("%B %Y")(d.dateObj)}
+      ${d.note ? `<br>${d.note}` : ""}
+    </div>
+    ${d.unreleased ? '<div class="est-badge" style="background:#1a2035;color:#60a5fa;border-color:#2d4a80">not yet released</div>' : ""}
+    ${d.estimated && !d.unreleased ? '<div class="est-badge">estimated</div>' : ""}
+  `);
 }
 function moveTip(event) {
-  const [mx, my] = d3.pointer(event, document.body);
   tooltip
-    .style("left", (mx + 16) + "px")
-    .style("top",  (my - 10) + "px");
+    .style("left", (event.clientX + 16) + "px")
+    .style("top",  (event.clientY - 10) + "px");
 }
 function hideTip() { tooltip.style("opacity", 0); }
 
-// Legend
-const orgs = [...new Set(models.map(d => d.org))];
+// ── Filter / visibility ───────────────────────────────────────
+function isVisible(d) {
+  if (!filterState.has(d.org)) return false;
+  if (hideEstimated && d.estimated && !d.unreleased) return false;
+  if (hideUnreleased && d.unreleased) return false;
+  return true;
+}
+
+function updateFilter() {
+  d3.selectAll(".dot")
+    .style("opacity",        d => isVisible(d) ? null : "0.06")
+    .style("pointer-events", d => isVisible(d) ? null : "none");
+
+  d3.selectAll(".dot-ring")
+    .style("opacity", d => isVisible(d) ? "0.3" : "0");
+
+  d3.selectAll(".label")
+    .style("opacity", d => isVisible(d) ? null : "0");
+
+  // Org pill states
+  d3.selectAll(".filter-pill[data-org]").each(function() {
+    const org  = this.getAttribute("data-org");
+    const active = filterState.has(org);
+    const color  = orgColors[org] || "#9ca3af";
+    d3.select(this)
+      .style("background", active ? color + "20" : "transparent")
+      .style("opacity", active ? "1" : "0.38");
+  });
+
+  // "All" pill state
+  const allActive = filterState.size === orgs.length;
+  d3.select(".filter-pill-all")
+    .classed("active", allActive)
+    .style("opacity", allActive ? "1" : "0.5");
+}
+
+// ── Legend ────────────────────────────────────────────────────
 const legend = d3.select("#legend");
 orgs.forEach(org => {
   const item = legend.append("div").attr("class", "legend-item");
@@ -466,6 +658,9 @@ orgs.forEach(org => {
     .style("background", orgColors[org] || "#9ca3af");
   item.append("span").text(org);
 });
+
+// Apply initial filter state (sets pill backgrounds)
+updateFilter();
 </script>
 </body>
 </html>

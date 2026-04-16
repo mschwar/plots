@@ -18,5 +18,8 @@ Year,Event,Category,Days_to_Adoption,Impact
 2022,ChatGPT public launch,AI/Agentic,60,Transformative
 2023,Grok (xAI) public on X,AI/Agentic,180,High
 2024,o1 / Claude 3.5 / Gemini 1.5 reasoning models,AI/Agentic,90,High
-2025,Agentic AI tools scale (Devin-like),AI/Agentic,30,Transformative
+2025,Agentic AI tools scale (Devin-like),AI/Agentic,21,Transformative
+2026,GPT-5.4 (OpenAI) public release,AI/Agentic,21,Transformative
+2026,Gemini 3.1 Pro public preview (Google),AI/Agentic,30,High
+2026,Claude Opus 4.7 (Anthropic) — released Apr 16 2026,AI/Agentic,21,High
 2026,Projected omni-modal / recursive agents,AI/Agentic,14,Speculative Transformative
