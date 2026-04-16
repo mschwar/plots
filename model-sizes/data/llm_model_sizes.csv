@@ -1,0 +1,39 @@
+name,date,params_billions,org,estimated,unreleased,note
+GPT-2,2019-02-14,1.5,OpenAI,false,false,Public release
+GPT-3,2020-06-11,175,OpenAI,false,false,175B params landmark paper
+GPT-3.5,2022-11-30,175,OpenAI,false,false,Powers ChatGPT launch
+GPT-4,2023-03-14,1760,OpenAI,true,false,~1.76T (8x220B MoE rumored)
+GPT-4o,2024-05-13,200,OpenAI,true,false,~200B estimated
+GPT-4o mini,2024-07-18,8,OpenAI,true,false,~8B estimated
+o1,2024-09-12,300,OpenAI,true,false,~300B estimated reasoning model
+GPT-5.4,2026-03-05,600,OpenAI,true,false,~600B estimated · Released Mar 5 2026 · 1M context · native multimodal
+GPT Spud,2026-05-01,5000,OpenAI,true,true,~5T estimated (rumored 5-6T MoE) · Pretraining complete Mar 24 2026 · In safety eval
+PaLM,2022-04-04,540,Google,false,false,Pathways Language Model
+Chinchilla,2022-03-29,70,Google,false,false,Optimal compute model
+PaLM 2,2023-05-10,340,Google,true,false,~340B estimated
+Gemini Ultra,2023-12-06,1560,Google,true,false,~1.56T estimated
+Gemini 1.5 Pro,2024-02-15,1000,Google,true,false,~1T MoE estimated
+Gemini 2.0 Flash,2024-12-11,12,Google,true,false,~12B estimated
+Gemini 3.1 Pro,2026-02-19,2000,Google,true,false,~2T estimated · 77.1% ARC-AGI-2 · 1M context · released Feb 19 2026
+LLaMA 1 65B,2023-02-24,65,Meta,false,false,Open weights
+LLaMA 2 70B,2023-07-18,70,Meta,false,false,Open weights commercial ok
+LLaMA 3 70B,2024-04-18,70,Meta,false,false,
+LLaMA 3.1 405B,2024-07-23,405,Meta,false,false,Largest open-weights model at release
+LLaMA 4 Scout,2025-04-05,109,Meta,false,false,17B active 109B total MoE
+Claude 2,2023-07-11,130,Anthropic,true,false,~130B estimated
+Claude 3 Opus,2024-03-04,500,Anthropic,true,false,~500B estimated
+Claude 3.5 Sonnet,2024-06-20,175,Anthropic,true,false,~175B estimated
+Claude 3.7 Sonnet,2025-02-24,175,Anthropic,true,false,Extended thinking
+Claude Opus 4.6,2025-09-15,700,Anthropic,true,false,~700B estimated · $5/$25 per 1M tokens · 1M context
+Claude Opus 4.7,2026-04-16,800,Anthropic,true,false,~800B estimated · Released Apr 16 2026 · 87.6% SWE-bench Verified
+Claude Mythos,2026-03-26,3000,Anthropic,true,true,~3T estimated · Invite-only preview · 73% on expert cyber tasks
+Mistral 7B,2023-09-27,7,Mistral,false,false,Strong 7B baseline
+Mixtral 8x7B,2023-12-11,47,Mistral,false,false,47B active (141B total MoE)
+Mixtral 8x22B,2024-04-10,141,Mistral,false,false,141B active params
+Grok 1,2024-03-17,314,xAI,false,false,Open weights MoE
+BLOOM,2022-07-06,176,BigScience,false,false,Open multilingual model
+GPT-NeoX-20B,2022-04-14,20,EleutherAI,false,false,
+Megatron-Turing,2022-01-15,530,MS/NVIDIA,false,false,Microsoft + NVIDIA collab
+Qwen2.5 72B,2024-09-19,72,Alibaba,false,false,
+DeepSeek V3,2024-12-26,671,DeepSeek,false,false,671B MoE 37B active
+DeepSeek R1,2025-01-20,671,DeepSeek,false,false,Reasoning model open weights

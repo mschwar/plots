@@ -1,0 +1,25 @@
+{
+  "title": "LLM Model Sizes Over Time",
+  "description": "Parameter counts for major language models from 2019 to 2026. Log scale. Dashed circles = estimated, double rings = not yet released.",
+  "date_range": "2019-02-14 to 2026-05-01",
+  "record_count": 38,
+  "last_updated": "2026-04-16",
+  "sources": [
+    { "name": "Anthropic model announcements", "url": "https://www.anthropic.com/news" },
+    { "name": "OpenAI model announcements", "url": "https://openai.com/index" },
+    { "name": "Artificial Analysis", "url": "https://artificialanalysis.ai" },
+    { "name": "Epoch AI", "url": "https://epochai.org" },
+    { "name": "Axios: Anthropic releases Opus 4.7", "url": "https://www.axios.com/2026/04/16/anthropic-claude-opus-model-mythos" },
+    { "name": "Fortune: Anthropic Mythos", "url": "https://fortune.com/2026/03/26/anthropic-says-testing-mythos-powerful-new-ai-model" }
+  ],
+  "caveat": "No frontier lab has disclosed official parameter counts since GPT-3. All values for 2023+ models are community estimates from leaks, benchmark analysis, and scaling projections.",
+  "fields": {
+    "name": "Model name",
+    "date": "Public release date (ISO 8601)",
+    "params_billions": "Estimated parameter count in billions",
+    "org": "Developing organization",
+    "estimated": "Whether parameter count is estimated (vs. officially disclosed)",
+    "unreleased": "Whether model is not yet publicly available",
+    "note": "Additional context"
+  }
+}

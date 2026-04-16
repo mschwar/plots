@@ -16,6 +16,7 @@ PLOT_DIRS = [
     "energetic-scaling",
     "civilization-scaling",
     "energy-leverage-per-person",
+    "model-sizes",  # D3-based; no Python src, skipped automatically
 ]
 
 

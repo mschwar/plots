@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plots – Interactive Timelines of Exponential Tech Progress</title>
+    <meta name="description" content="Six interactive data visualizations exploring exponential tech progress: AI compute, adoption speed, energetic efficiency, civilization scaling, energy leverage, and LLM model sizes.">
     <link rel="stylesheet" href="shared/site.css">
     <style>
         /* Homepage overrides */
@@ -13,7 +14,7 @@
 </head>
 <body>
     <h1>Plots</h1>
-    <p class="subtitle">Five interactive timelines exploring exponential tech progress: compute power, adoption speed, energetic efficiency, civilization scaling, and energy leverage.</p>
+    <p class="subtitle">Six interactive timelines exploring exponential tech progress: compute power, adoption speed, energetic efficiency, civilization scaling, energy leverage, and LLM model sizes.</p>
 
     <div class="quick-links">
         <strong>Quick Links:</strong>
@@ -21,7 +22,8 @@
         <a href="adoption-timeline/output/adoption_timeline_interactive.html">Adoption</a> |
         <a href="energetic-scaling/output/energetic_scaling_interactive.html">Energetic</a> |
         <a href="civilization-scaling/output/civilization_scaling_interactive.html">Civilization</a> |
-        <a href="energy-leverage-per-person/output/energy_leverage_interactive.html">Energy Leverage</a>
+        <a href="energy-leverage-per-person/output/energy_leverage_interactive.html">Energy Leverage</a> |
+        <a href="model-sizes/output/model_sizes_interactive.html">Model Sizes</a>
     </div>
 
     <div class="cards">
@@ -89,7 +91,7 @@
             </div>
         </div>
 
-        <div class="card new">
+        <div class="card">
             <a href="energy-leverage-per-person/output/energy_leverage_interactive.html">
                 <img src="energy-leverage-per-person/output/energy_leverage_highres.png" alt="Energy Leverage">
             </a>
@@ -101,6 +103,21 @@
                     <a href="energy-leverage-per-person/output/energy_leverage_highres.png">PNG</a>
                     <a href="energy-leverage-per-person/output/energy_leverage.svg">SVG</a>
                     <a href="energy-leverage-per-person/data/energy_leverage_datapoints.csv">Data</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card new">
+            <a href="model-sizes/output/model_sizes_interactive.html">
+                <img src="model-sizes/output/model_sizes_highres.png" alt="LLM Model Sizes" onerror="this.style.display='none'">
+            </a>
+            <div class="card-content">
+                <h2>6. LLM Model Sizes</h2>
+                <p>1.5B → 5T params in 7 years. Parameter <strong>scale</strong> across 38 models.</p>
+                <div class="links">
+                    <a href="model-sizes/output/model_sizes_interactive.html">Interactive</a>
+                    <a href="model-sizes/data/llm_model_sizes.csv">Data</a>
+                    <a href="model-sizes/data/meta.json">Metadata</a>
                 </div>
             </div>
         </div>
@@ -139,6 +156,11 @@
                 <td>Watts/person vs metabolic</td>
                 <td><em>~17× body energy</em></td>
             </tr>
+            <tr>
+                <td><strong>Model Sizes</strong></td>
+                <td>LLM params (1.5B → 5T)</td>
+                <td>Exponential <em>growth</em> ↑</td>
+            </tr>
         </table>
         <p>Together they show how scaling laws drive exponential progress – in biology, hardware, AI, and energy. Infrastructure layers stack to enable each leap.</p>
         <p>Inspired by Kurzweil, <a href="https://epochai.org/">Epoch AI</a>, <a href="https://www.statista.com/">Statista</a>, Herculano-Houzel, Smil.</p>
@@ -147,7 +169,7 @@
     <footer>
         <p>
             Sources: See each plot's <code>data/meta.json</code> |
-            Built with Plotly & Matplotlib |
+            Built with Plotly, Matplotlib & D3.js |
             <a href="https://github.com/mschwar/plots">GitHub</a> |
             MIT License
         </p>

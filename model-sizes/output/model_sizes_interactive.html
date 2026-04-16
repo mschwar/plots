@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LLM Parameter Sizes Over Time</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0f1117;
+    color: #e8eaf6;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+  }
+  h1 {
+    font-size: 1.9rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+    background: linear-gradient(135deg, #a78bfa, #60a5fa, #34d399);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .subtitle {
+    color: #6b7280;
+    font-size: 0.9rem;
+    margin-bottom: 36px;
+  }
+  #chart-container {
+    width: 100%;
+    max-width: 1100px;
+    position: relative;
+  }
+  svg { overflow: visible; }
+  .grid line {
+    stroke: #1e2030;
+    stroke-dasharray: 3 4;
+  }
+  .grid path { stroke: none; }
+  .axis text { fill: #6b7280; font-size: 12px; }
+  .axis path, .axis line { stroke: #2d3148; }
+  .axis-label { fill: #9ca3af; font-size: 13px; font-weight: 500; }
+  .dot {
+    cursor: pointer;
+    transition: r 0.15s, opacity 0.15s;
+  }
+  .dot:hover { opacity: 1 !important; }
+  .dot.estimated {
+    stroke-dasharray: 3 2;
+    stroke-width: 2;
+    fill-opacity: 0.35;
+  }
+  .label {
+    font-size: 11px;
+    fill: #d1d5db;
+    pointer-events: none;
+    font-weight: 500;
+  }
+  .tooltip {
+    position: absolute;
+    background: #1c1f2e;
+    border: 1px solid #2d3148;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 13px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+    max-width: 240px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  }
+  .tooltip strong { font-size: 14px; display: block; margin-bottom: 4px; }
+  .tooltip .param { font-size: 18px; font-weight: 700; margin: 4px 0; }
+  .tooltip .meta { color: #9ca3af; font-size: 12px; margin-top: 4px; line-height: 1.5; }
+  .tooltip .est-badge {
+    display: inline-block;
+    background: #2d2040;
+    color: #a78bfa;
+    border: 1px solid #4c3880;
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 10px;
+    margin-top: 4px;
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-top: 20px;
+    justify-content: center;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #9ca3af;
+  }
+  .legend-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .legend-est {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 10px;
+  }
+  .legend-est-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    border: 2px dashed #6b7280;
+    background: rgba(107,114,128,0.2);
+    flex-shrink: 0;
+  }
+  .trend-line {
+    fill: none;
+    stroke: #a78bfa;
+    stroke-width: 1.5;
+    stroke-dasharray: 6 4;
+    opacity: 0.25;
+  }
+  .era-label {
+    fill: #374151;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+<h1>Large Language Model Scale Over Time</h1>
+<p class="subtitle">Parameter counts from 2019 – 2026 &nbsp;·&nbsp; Log scale &nbsp;·&nbsp; Dashed circles = estimated &nbsp;·&nbsp; ✦ = not yet released</p>
+<div id="chart-container">
+  <div class="tooltip" id="tooltip"></div>
+</div>
+<div class="legend" id="legend"></div>
+<div style="display:flex;justify-content:center;gap:28px;margin-top:10px;flex-wrap:wrap;">
+  <div class="legend-est">
+    <div class="legend-est-dot"></div>
+    Estimated / rumored parameter count
+  </div>
+  <div class="legend-est" style="color:#60a5fa">
+    <div style="width:12px;height:12px;border-radius:50%;border:1px dashed #60a5fa;background:rgba(96,165,250,0.1);flex-shrink:0;outline:2px dashed #60a5fa44;outline-offset:3px"></div>
+    ✦ Not yet publicly released
+  </div>
+</div>
+
+<script>
+const models = [
+  // OpenAI
+  { name: "GPT-2",         date: "2019-02-14", params: 1.5,    org: "OpenAI",    estimated: false, note: "Public release" },
+  { name: "GPT-3",         date: "2020-06-11", params: 175,    org: "OpenAI",    estimated: false, note: "175B params, landmark paper" },
+  { name: "GPT-3.5",       date: "2022-11-30", params: 175,    org: "OpenAI",    estimated: false, note: "Powers ChatGPT launch" },
+  { name: "GPT-4",         date: "2023-03-14", params: 1760,   org: "OpenAI",    estimated: true,  note: "~1.76T (8×220B MoE, rumored)" },
+  { name: "GPT-4o",        date: "2024-05-13", params: 200,    org: "OpenAI",    estimated: true,  note: "~200B estimated" },
+  { name: "GPT-4o mini",   date: "2024-07-18", params: 8,      org: "OpenAI",    estimated: true,  note: "~8B estimated" },
+  { name: "o1",            date: "2024-09-12", params: 300,    org: "OpenAI",    estimated: true,  note: "~300B estimated, reasoning model" },
+
+  // Google / DeepMind
+  { name: "PaLM",          date: "2022-04-04", params: 540,    org: "Google",    estimated: false, note: "Pathways Language Model" },
+  { name: "Chinchilla",    date: "2022-03-29", params: 70,     org: "Google",    estimated: false, note: "Optimal compute model" },
+  { name: "PaLM 2",        date: "2023-05-10", params: 340,    org: "Google",    estimated: true,  note: "~340B estimated" },
+  { name: "Gemini Ultra",  date: "2023-12-06", params: 1560,   org: "Google",    estimated: true,  note: "~1.56T estimated" },
+  { name: "Gemini 1.5 Pro",date: "2024-02-15", params: 1000,   org: "Google",    estimated: true,  note: "~1T MoE, estimated" },
+  { name: "Gemini 2.0 Flash",date:"2024-12-11",params: 12,     org: "Google",    estimated: true,  note: "~12B estimated" },
+
+  // Meta
+  { name: "LLaMA 1 (65B)", date: "2023-02-24", params: 65,    org: "Meta",      estimated: false, note: "Open weights" },
+  { name: "LLaMA 2 (70B)", date: "2023-07-18", params: 70,    org: "Meta",      estimated: false, note: "Open weights, commercial ok" },
+  { name: "LLaMA 3 (70B)", date: "2024-04-18", params: 70,    org: "Meta",      estimated: false, note: "" },
+  { name: "LLaMA 3.1 405B",date: "2024-07-23", params: 405,   org: "Meta",      estimated: false, note: "Largest open-weights model" },
+  { name: "LLaMA 4 Scout", date: "2025-04-05", params: 109,   org: "Meta",      estimated: false, note: "17B active, 109B total MoE" },
+
+  // Anthropic
+  { name: "Claude 2",      date: "2023-07-11", params: 130,    org: "Anthropic", estimated: true,  note: "~130B estimated" },
+  { name: "Claude 3 Opus", date: "2024-03-04", params: 500,    org: "Anthropic", estimated: true,  note: "~500B estimated" },
+  { name: "Claude 3.5 Sonnet",date:"2024-06-20",params: 175,  org: "Anthropic", estimated: true,  note: "~175B estimated" },
+  { name: "Claude 3.7 Sonnet",date:"2025-02-24",params: 175,  org: "Anthropic", estimated: true,  note: "Extended thinking" },
+
+  // Mistral
+  { name: "Mistral 7B",    date: "2023-09-27", params: 7,     org: "Mistral",   estimated: false, note: "Strong 7B baseline" },
+  { name: "Mixtral 8×7B",  date: "2023-12-11", params: 47,    org: "Mistral",   estimated: false, note: "47B active (141B total MoE)" },
+  { name: "Mixtral 8×22B", date: "2024-04-10", params: 141,   org: "Mistral",   estimated: false, note: "141B active params" },
+
+  // xAI
+  { name: "Grok 1",        date: "2024-03-17", params: 314,   org: "xAI",       estimated: false, note: "Open weights MoE" },
+
+  // BigScience / EleutherAI
+  { name: "BLOOM",         date: "2022-07-06", params: 176,   org: "BigScience",estimated: false, note: "Open multilingual model" },
+  { name: "GPT-NeoX-20B",  date: "2022-04-14", params: 20,   org: "EleutherAI",estimated: false, note: "" },
+  { name: "Megatron-Turing",date:"2022-01-15",  params: 530,  org: "MS/NVIDIA",  estimated: false, note: "Microsoft + NVIDIA collab" },
+
+  // Qwen / DeepSeek
+  { name: "Qwen2.5 72B",   date: "2024-09-19", params: 72,   org: "Alibaba",   estimated: false, note: "" },
+  { name: "DeepSeek V3",   date: "2024-12-26", params: 671,  org: "DeepSeek",  estimated: false, note: "671B MoE, 37B active" },
+  { name: "DeepSeek R1",   date: "2025-01-20", params: 671,  org: "DeepSeek",  estimated: false, note: "Reasoning model, open weights" },
+
+  // 2026 frontier models (no official param counts disclosed)
+  { name: "Claude Opus 4.6",   date: "2025-09-15", params: 700,  org: "Anthropic", estimated: true, note: "~700B estimated · $5/$25 per 1M tokens · 1M context" },
+  { name: "GPT-5.4",           date: "2026-03-05", params: 600,  org: "OpenAI",    estimated: true, note: "~600B estimated · Released Mar 5, 2026 · 1M context · native multimodal" },
+  { name: "Gemini 3.1 Pro",    date: "2026-02-19", params: 2000, org: "Google",    estimated: true, note: "~2T estimated · 77.1% ARC-AGI-2 (2× prev gen) · 1M context · released Feb 19, 2026" },
+  { name: "Claude Opus 4.7",   date: "2026-04-16", params: 800,  org: "Anthropic", estimated: true, note: "~800B estimated · Released Apr 16, 2026 · 87.6% SWE-bench Verified · 64.3% SWE-bench Pro" },
+  { name: "Claude Mythos",     date: "2026-03-26", params: 3000, org: "Anthropic", estimated: true, unreleased: true, note: "~3T estimated · Invite-only preview · 73% on expert cyber tasks · CFR: 'inflection point for AI'" },
+  { name: "GPT Spud ✦",       date: "2026-05-01", params: 5000, org: "OpenAI",    estimated: true, unreleased: true, note: "~5T estimated (rumored 5–6T MoE) · Pretraining complete Mar 24, 2026 · In safety eval · Not yet released" },
+];
+
+const orgColors = {
+  "OpenAI":     "#10b981",
+  "Google":     "#3b82f6",
+  "Meta":       "#60a5fa",
+  "Anthropic":  "#a78bfa",
+  "Mistral":    "#f59e0b",
+  "xAI":        "#ef4444",
+  "BigScience": "#6b7280",
+  "EleutherAI": "#6b7280",
+  "MS/NVIDIA":  "#94a3b8",
+  "Alibaba":    "#fb923c",
+  "DeepSeek":   "#38bdf8",
+};
+
+const margin = { top: 30, right: 60, bottom: 60, left: 90 };
+const width  = Math.min(1060, window.innerWidth - 40) - margin.left - margin.right;
+const height = 540;
+
+const svg = d3.select("#chart-container")
+  .insert("svg", ":first-child")
+  .attr("width",  width  + margin.left + margin.right)
+  .attr("height", height + margin.top  + margin.bottom)
+  .append("g")
+  .attr("transform", `translate(${margin.left},${margin.top})`);
+
+const parseDate = d3.timeParse("%Y-%m-%d");
+models.forEach(d => d.dateObj = parseDate(d.date));
+
+const xScale = d3.scaleTime()
+  .domain([new Date("2018-09-01"), new Date("2026-09-01")])
+  .range([0, width]);
+
+const yScale = d3.scaleLog()
+  .domain([0.8, 12000])
+  .range([height, 0]);
+
+// Era backgrounds
+const eras = [
+  { start: "2019-01-01", end: "2022-01-01", label: "Pre-ChatGPT" },
+  { start: "2022-01-01", end: "2023-06-01", label: "Foundation Models" },
+  { start: "2023-06-01", end: "2025-01-01", label: "Open Weights Era" },
+  { start: "2025-01-01", end: "2026-09-01", label: "Reasoning & Agents" },
+];
+eras.forEach(e => {
+  svg.append("rect")
+    .attr("x", xScale(new Date(e.start)))
+    .attr("y", 0)
+    .attr("width", xScale(new Date(e.end)) - xScale(new Date(e.start)))
+    .attr("height", height)
+    .attr("fill", "#161822")
+    .attr("opacity", 0.5);
+  svg.append("text")
+    .attr("x", (xScale(new Date(e.start)) + xScale(new Date(e.end))) / 2)
+    .attr("y", 14)
+    .attr("text-anchor", "middle")
+    .attr("class", "era-label")
+    .text(e.label);
+});
+
+// Grid
+svg.append("g").attr("class", "grid")
+  .call(d3.axisLeft(yScale).tickValues([1,10,100,1000,10000]).tickSize(-width).tickFormat(""));
+
+// Axes
+const xAxis = d3.axisBottom(xScale)
+  .ticks(d3.timeYear.every(1))
+  .tickFormat(d3.timeFormat("%Y"));
+
+svg.append("g")
+  .attr("class", "axis")
+  .attr("transform", `translate(0,${height})`)
+  .call(xAxis);
+
+const yAxis = d3.axisLeft(yScale)
+  .tickValues([1, 10, 100, 1000, 10000])
+  .tickFormat(d => {
+    if (d >= 1000) return d/1000 + "T";
+    return d + "B";
+  });
+
+svg.append("g").attr("class", "axis").call(yAxis);
+
+// Axis labels
+svg.append("text")
+  .attr("class", "axis-label")
+  .attr("text-anchor", "middle")
+  .attr("x", width / 2)
+  .attr("y", height + 48)
+  .text("Release Date");
+
+svg.append("text")
+  .attr("class", "axis-label")
+  .attr("text-anchor", "middle")
+  .attr("transform", `rotate(-90)`)
+  .attr("x", -height / 2)
+  .attr("y", -68)
+  .text("Parameters (log scale)");
+
+// Vertical reference: ChatGPT
+svg.append("line")
+  .attr("x1", xScale(new Date("2022-11-30")))
+  .attr("x2", xScale(new Date("2022-11-30")))
+  .attr("y1", 0).attr("y2", height)
+  .attr("stroke", "#374151")
+  .attr("stroke-dasharray", "5 4")
+  .attr("stroke-width", 1.5);
+svg.append("text")
+  .attr("x", xScale(new Date("2022-11-30")) + 5)
+  .attr("y", height - 10)
+  .attr("fill", "#4b5563")
+  .attr("font-size", "11px")
+  .text("ChatGPT");
+
+// Points
+const tooltip = d3.select("#tooltip");
+
+const labelOffsets = {
+  "GPT-2":          [-5, -14],
+  "GPT-3":          [8,  4],
+  "GPT-3.5":        [-50, -14],
+  "GPT-4":          [8,  4],
+  "GPT-4o":         [8,  4],
+  "GPT-4o mini":    [8, -14],
+  "o1":             [8,  4],
+  "PaLM":           [-44, -14],
+  "Chinchilla":     [8, 4],
+  "PaLM 2":         [8, -14],
+  "Gemini Ultra":   [-90, 14],
+  "Gemini 1.5 Pro": [8, 4],
+  "Gemini 2.0 Flash":[8, -14],
+  "LLaMA 1 (65B)":  [8, 4],
+  "LLaMA 2 (70B)":  [8, 14],
+  "LLaMA 3 (70B)":  [8, -14],
+  "LLaMA 3.1 405B": [8, 4],
+  "LLaMA 4 Scout":  [8, 14],
+  "Claude 2":       [-60, 14],
+  "Claude 3 Opus":  [-80, 14],
+  "Claude 3.5 Sonnet": [8, -14],
+  "Claude 3.7 Sonnet": [8, 14],
+  "Mistral 7B":     [8, 4],
+  "Mixtral 8×7B":   [8, 4],
+  "Mixtral 8×22B":  [8, -14],
+  "Grok 1":         [8, -14],
+  "BLOOM":          [-52, -14],
+  "GPT-NeoX-20B":   [8, 4],
+  "Megatron-Turing":[-10, -14],
+  "Qwen2.5 72B":    [8, -14],
+  "DeepSeek V3":    [8, 4],
+  "DeepSeek R1":    [8, 18],
+  "Claude Opus 4.6":   [8, 4],
+  "Claude Opus 4.7":   [8, 16],
+  "Claude Mythos":     [-100, -14],
+  "Gemini 3.1 Pro":    [8, -14],
+  "GPT-5.4":           [8, 4],
+  "GPT Spud ✦":        [8, 4],
+};
+
+function formatParams(p) {
+  if (p >= 1000) return (p/1000).toFixed(p%1000===0?0:2) + " trillion";
+  return p + " billion";
+}
+
+models.forEach(d => {
+  const x = xScale(d.dateObj);
+  const y = yScale(d.params);
+  const color = orgColors[d.org] || "#9ca3af";
+  const r = d.estimated ? 7 : 8;
+
+  if (d.unreleased) {
+    // Pulsing outer ring for unreleased models
+    svg.append("circle")
+      .datum(d)
+      .attr("cx", x).attr("cy", y).attr("r", r + 5)
+      .attr("fill", "none")
+      .attr("stroke", color)
+      .attr("stroke-width", 1)
+      .attr("opacity", 0.3)
+      .attr("stroke-dasharray", "3 2");
+    svg.append("circle")
+      .datum(d)
+      .attr("cx", x).attr("cy", y).attr("r", r)
+      .attr("class", "dot estimated")
+      .attr("stroke", color)
+      .attr("fill", color)
+      .attr("fill-opacity", 0.25)
+      .on("mouseover", showTip)
+      .on("mousemove", moveTip)
+      .on("mouseout", hideTip);
+  } else if (d.estimated) {
+    svg.append("circle")
+      .datum(d)
+      .attr("cx", x).attr("cy", y).attr("r", r)
+      .attr("class", "dot estimated")
+      .attr("stroke", color)
+      .attr("fill", color)
+      .on("mouseover", showTip)
+      .on("mousemove", moveTip)
+      .on("mouseout", hideTip);
+  } else {
+    svg.append("circle")
+      .datum(d)
+      .attr("cx", x).attr("cy", y).attr("r", r)
+      .attr("class", "dot")
+      .attr("fill", color)
+      .attr("opacity", 0.88)
+      .on("mouseover", showTip)
+      .on("mousemove", moveTip)
+      .on("mouseout", hideTip);
+  }
+
+  const [dx, dy] = labelOffsets[d.name] || [8, 4];
+  svg.append("text")
+    .attr("class", "label")
+    .attr("x", x + dx)
+    .attr("y", y + dy)
+    .attr("text-anchor", dx < 0 ? "end" : "start")
+    .attr("fill", d.unreleased ? "#9ca3af" : "#d1d5db")
+    .text(d.name);
+});
+
+function showTip(event, d) {
+  const color = orgColors[d.org] || "#9ca3af";
+  tooltip.style("opacity", 1)
+    .html(`
+      <strong style="color:${color}">${d.name}</strong>
+      <div class="param" style="color:${color}">${formatParams(d.params)}</div>
+      <div class="meta">
+        <b>Org:</b> ${d.org}<br>
+        <b>Released:</b> ${d3.timeFormat("%B %Y")(d.dateObj)}
+        ${d.note ? `<br>${d.note}` : ""}
+      </div>
+      ${d.unreleased ? '<div class="est-badge" style="background:#1a2035;color:#60a5fa;border-color:#2d4a80">not yet released</div>' : ""}
+      ${d.estimated && !d.unreleased ? '<div class="est-badge">estimated</div>' : ""}
+    `);
+}
+function moveTip(event) {
+  const [mx, my] = d3.pointer(event, document.body);
+  tooltip
+    .style("left", (mx + 16) + "px")
+    .style("top",  (my - 10) + "px");
+}
+function hideTip() { tooltip.style("opacity", 0); }
+
+// Legend
+const orgs = [...new Set(models.map(d => d.org))];
+const legend = d3.select("#legend");
+orgs.forEach(org => {
+  const item = legend.append("div").attr("class", "legend-item");
+  item.append("div").attr("class", "legend-dot")
+    .style("background", orgColors[org] || "#9ca3af");
+  item.append("span").text(org);
+});
+</script>
+</body>
+</html>

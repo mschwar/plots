@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Model Sizes (2019–2026) – Parameter Counts Over Time</title>
+    <link rel="stylesheet" href="../shared/site.css">
+</head>
+<body>
+    <div class="nav-bar">
+        <a href="../">&larr; Back to Plots</a>
+    </div>
+
+    <h1>LLM Model Sizes Over Time</h1>
+    <p class="subtitle">Parameter counts from 2019 – 2026 &nbsp;·&nbsp; Log scale &nbsp;·&nbsp; 38 models across 11 organizations</p>
+
+    <a href="output/model_sizes_interactive.html">
+        <img src="output/model_sizes_highres.png" alt="LLM Model Sizes Over Time" class="main-image">
+    </a>
+
+    <div class="links">
+        <a href="output/model_sizes_interactive.html">Interactive (D3)</a>
+        <a href="data/llm_model_sizes.csv">Data (CSV)</a>
+        <a href="data/meta.json">Metadata</a>
+    </div>
+
+    <div class="highlight">
+        <strong>Key insight:</strong> Parameter counts grew ~3,000× in 5 years (GPT-2: 1.5B → GPT Spud: ~5T), while frontier labs stopped publishing official counts entirely after 2020.
+    </div>
+
+    <div class="description">
+        <h2>Key Milestones</h2>
+        <table>
+            <thead>
+                <tr><th>Date</th><th>Model</th><th>Est. Params</th><th>Significance</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Jun 2020</td><td>GPT-3</td><td>175B (confirmed)</td><td>Last major model with disclosed params</td></tr>
+                <tr><td>Mar 2023</td><td>GPT-4</td><td>~1.76T (rumored)</td><td>MoE architecture, capability leap</td></tr>
+                <tr><td>Jul 2024</td><td>LLaMA 3.1 405B</td><td>405B (confirmed)</td><td>Largest open-weights model</td></tr>
+                <tr><td>Feb 2026</td><td>Gemini 3.1 Pro</td><td>~2T (est.)</td><td>77.1% ARC-AGI-2, 2× prior gen</td></tr>
+                <tr><td>Apr 2026</td><td><strong>Claude Opus 4.7</strong></td><td>~800B (est.)</td><td>87.6% SWE-bench Verified</td></tr>
+                <tr><td>~May 2026</td><td>GPT Spud ✦</td><td>~5T (rumored)</td><td>In safety eval; not yet released</td></tr>
+            </tbody>
+        </table>
+
+        <h2>About</h2>
+        <p>Semi-log timeline of LLM parameter counts. The Y-axis spans four orders of magnitude (1B → 10T) — log scale is essential since raw scale would compress 99% of models into a flat line at the bottom.</p>
+        <ul>
+            <li>38 models from 11 organizations (2019–2026)</li>
+            <li>Dashed circles = estimated/rumored parameter counts</li>
+            <li>Double-ring markers = models not yet publicly released</li>
+            <li>Era bands: Pre-ChatGPT / Foundation Models / Open Weights / Reasoning &amp; Agents</li>
+        </ul>
+        <p><strong>Caveat:</strong> No frontier lab has disclosed official parameter counts since GPT-3 (2020). All 2023+ values are community estimates derived from leaks, compute analysis, and scaling projections.</p>
+    </div>
+
+    <div class="companion">
+        <strong>Related:</strong>
+        <a href="../ai-compute-timeline/">AI Compute Timeline</a> |
+        <a href="../adoption-timeline/">Adoption Timeline</a>
+        — Parameter count is one axis of scale; training compute and adoption speed are the others.
+    </div>
+
+    <footer>
+        <p class="sources">
+            Sources:
+            <a href="https://www.anthropic.com/news">Anthropic</a> •
+            <a href="https://openai.com">OpenAI</a> •
+            <a href="https://artificialanalysis.ai">Artificial Analysis</a> •
+            <a href="https://epochai.org">Epoch AI</a>
+        </p>
+        <p>
+            <a href="data/meta.json">meta.json</a> |
+            <a href="https://github.com/mschwar/plots/tree/main/model-sizes">GitHub</a> |
+            MIT
+        </p>
+    </footer>
+
+    <script src="../shared/site.js"></script>
+</body>
+</html>
