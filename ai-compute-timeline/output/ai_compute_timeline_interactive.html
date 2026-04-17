@@ -571,7 +571,7 @@ function positionLines() {
 // ------------------------------------------------------------------
 // Bracket + note (must be behind dots)
 // ------------------------------------------------------------------
-const bracketG = svg.append("g").attr("clip-path", "url(#plot-clip)");
+const bracketG = svg.append("g").attr("clip-path", "url(#plot-clip)").style("pointer-events", "none");
 const bracketPath = bracketG.append("path").attr("class", "bracket");
 const bracketLabel = svg.append("text")
   .attr("class", "bracket-label")
