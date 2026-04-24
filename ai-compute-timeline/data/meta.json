@@ -5,7 +5,8 @@
     "Year": "Year of milestone",
     "Event": "Name of model/system",
     "Category": "Era category (Early Compute, Neural Nets, Deep Learning, etc.)",
-    "Training_FLOPs": "Estimated floating-point operations for training",
+    "Compute_FLOPs": "Estimated floating-point operations for training or compute",
+    "Parameters": "Model parameter count where applicable",
     "Impact": "Historical impact level (Transformative, High, Medium, Speculative)"
   },
   "sources": [

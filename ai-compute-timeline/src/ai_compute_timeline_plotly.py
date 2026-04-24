@@ -56,7 +56,7 @@ def parse_flops(value):
     if 'few' in value.lower():
         match = re.search(r'e(\d+)', value, re.IGNORECASE)
         if match:
-            return 3 * 10**int(match.group(1))
+            return 3e23  # Use float notation instead of 3 * 10**23
     match = re.search(r'^~?(\d+\.?\d*)[eE](\d+)', value)
     if match:
         return float(f"{match.group(1)}e{match.group(2)}")

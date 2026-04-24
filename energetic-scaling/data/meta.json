@@ -2,14 +2,14 @@
   "title": "Energetic Scaling: Biology vs. Technology",
   "description": "Dual-panel comparison: biological neural efficiency (neurons/kg vs body mass) and technological compute efficiency (cps/$ vs time).",
   "fields": {
-    "species": "Species name (biology panel)",
-    "body_mass_kg": "Body mass in kilograms",
-    "neurons": "Total neuron count",
-    "neurons_per_kg": "Neurons per kilogram of body mass",
-    "EQ": "Encephalization Quotient (brain size vs expected for body size)",
-    "year": "Year (technology panel)",
-    "device": "Computing device name",
-    "cps_per_dollar": "Calculations per second per dollar"
+    "Category": "Panel category (Biology, Tech, LHT)",
+    "Group": "Sub-group within category",
+    "Entity": "Species name, device, or population",
+    "Body_Mass_kg_or_Compute_Scale": "Body mass (kg) for biology, year or scale for tech",
+    "Neurons_Total_or_Efficiency_Metric": "Neuron count or efficiency metric",
+    "Neurons_per_kg_or_CPS_per_Dollar": "Neuron density or compute-per-dollar",
+    "Impact": "Significance level (Low, Medium, High, Transformative)",
+    "Notes": "Additional context"
   },
   "sources": [
     {
