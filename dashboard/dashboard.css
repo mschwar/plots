@@ -1,0 +1,58 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #0f1117;
+  color: #e8eaf6;
+  font-family: 'SF Pro Display', -apple-system, sans-serif;
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+h1 {
+  font-size: 2.2rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+  background: linear-gradient(135deg, #a78bfa, #60a5fa, #34d399);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.subtitle { color: #6b7280; font-size: 0.9rem; margin-bottom: 28px; }
+#dashboard-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.lane {
+  margin-bottom: 20px;
+  padding: 16px;
+  background: #1c1f2e;
+  border-radius: 12px;
+  border: 1px solid #2d3148;
+}
+.lane-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #9ca3af;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.axis text { fill: #6b7280; font-size: 11px; }
+.axis path, .axis line { stroke: #2d3148; }
+.event-dot {
+  cursor: pointer;
+  transition: r 0.15s;
+}
+.event-dot:hover { r: 8; }
+.tooltip {
+  position: absolute;
+  background: #1c1f2e;
+  border: 1px solid #2d3148;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  z-index: 100;
+}
