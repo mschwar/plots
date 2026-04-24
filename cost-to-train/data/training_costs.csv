@@ -1,0 +1,11 @@
+Year,Model,Organization,Training_FLOPs,Cost_Million_USD,Dollar_per_FLOP,Capability_Score,Efficiency_Gain,Notes
+2012,AlexNet,DeepMind,6.00E+17,0.001,1.67E-21,15,1.0,First deep learning breakthrough
+2018,BERT-Large,Google,6.40E+18,0.01,1.56E-21,35,2.5,Transformer scaling begins
+2019,GPT-2,OpenAI,1.00E+19,0.05,5.00E-21,40,3.0,First large generative model
+2020,GPT-3,OpenAI,3.14E+23,4.6,1.47E-23,55,50.0,Scaling laws emerge
+2022,GPT-4 (est),OpenAI,2.00E+25,100,5.00E-24,75,200.0,Frontier era begins
+2023,Llama 2 70B,Meta,1.70E+24,2.5,1.47E-24,65,500.0,Open weights efficiency
+2024,Claude 3.5 Sonnet,Anthropic,1.00E+25,30,3.00E-24,80,800.0,Algorithmic gains
+2025,Grok-3,xAI,1.00E+26,200,2.00E-24,85,1200.0,Massive cluster training
+2025,Claude Opus 4.7,Anthropic,2.00E+26,500,2.50E-24,90,1500.0,Agentic capabilities
+2026,GPT-5.4 (est),OpenAI,1.00E+27,1000,1.00E-24,95,2000.0,Pretraining complete

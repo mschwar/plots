@@ -1,0 +1,21 @@
+{
+  "title": "Cost-to-Train Frontier Models",
+  "description": "Training cost vs. capability over time, showing the efficiency paradox — why cost hasn't grown with FLOPs.",
+  "fields": {
+    "Year": "Year of training",
+    "Model": "Model name",
+    "Organization": "Organization",
+    "Training_FLOPs": "Estimated training FLOPs",
+    "Cost_Million_USD": "Estimated training cost in millions USD",
+    "Dollar_per_FLOP": "Cost per FLOP (collapsing metric)",
+    "Capability_Score": "Composite capability score (0-100)",
+    "Efficiency_Gain": "Algorithmic + hardware efficiency multiplier",
+    "Notes": "Additional context"
+  },
+  "sources": [
+    {"name": "Epoch AI", "url": "https://epochai.org/", "accessed": "2026-04"},
+    {"name": "NVIDIA GPU Pricing", "url": "https://www.nvidia.com/", "accessed": "2026-04"}
+  ],
+  "created": "2026-04",
+  "author": "mschwar"
+}
