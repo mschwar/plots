@@ -23,7 +23,9 @@
         <a href="energetic-scaling/output/energetic_scaling_interactive.html">Energetic</a> |
         <a href="civilization-scaling/output/civilization_scaling_interactive.html">Civilization</a> |
         <a href="energy-leverage-per-person/output/energy_leverage_interactive.html">Energy Leverage</a> |
-        <a href="model-sizes/output/model_sizes_interactive.html">Model Sizes</a>
+        <a href="ai-benchmark-progress/output/benchmark_progress_interactive.html">AI Benchmarks</a> |
+        <a href="cost-to-train/output/cost_to_train_interactive.html">Cost to Train</a> |
+        <a href="dashboard/index.html">Dashboard</a> |
     </div>
 
     <div class="cards">
@@ -112,18 +114,52 @@
             </div>
         </div>
 
-        <div class="card new">
-            <a href="model-sizes/output/model_sizes_interactive.html">
-                <img src="model-sizes/output/model_sizes_highres.png" alt="LLM Model Sizes" onerror="this.style.display='none'">
+        <div class="card">
+            <a href="ai-benchmark-progress/output/benchmark_progress_interactive.html">
+                <img src="ai-benchmark-progress/output/benchmark_progress_highres.png" alt="AI Benchmark Progress">
             </a>
             <div class="card-content">
-                <h2>6. LLM Model Sizes</h2>
-                <div class="card-stat"><span class="stat-number">3,000×</span><span class="stat-label">param growth since 2019</span></div>
-                <p>1.5B → 5T params in 7 years. Parameter <strong>scale</strong> across 38 models.</p>
+                <h2>7. AI Benchmark Progress</h2>
+                <div class="card-stat"><span class="stat-number">4×</span><span class="stat-label">benchmarks crossed human-level</span></div>
+                <p>MMLU, HumanEval, SWE-bench, ARC-AGI crossing human baselines. <strong>Capability compression</strong>.</p>
                 <div class="links">
-                    <a href="model-sizes/output/model_sizes_interactive.html">Interactive</a>
-                    <a href="model-sizes/data/llm_model_sizes.csv">Data</a>
-                    <a href="model-sizes/data/meta.json">Metadata</a>
+                    <a href="ai-benchmark-progress/output/benchmark_progress_interactive.html">Interactive</a>
+                    <a href="ai-benchmark-progress/output/benchmark_progress_highres.png">PNG</a>
+                    <a href="ai-benchmark-progress/output/benchmark_progress.svg">SVG</a>
+                    <a href="ai-benchmark-progress/data/benchmark_data.csv">Data</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <a href="cost-to-train/output/cost_to_train_interactive.html">
+                <img src="cost-to-train/output/cost_to_train_highres.png" alt="Cost to Train">
+            </a>
+            <div class="card-content">
+                <h2>8. Cost-to-Train Frontier</h2>
+                <div class="card-stat"><span class="stat-number">10²¹×</span><span class="stat-label">cheaper per FLOP since 2012</span></div>
+                <p>FLOPs explode but $/FLOP collapses. The <strong>efficiency paradox</strong>.</p>
+                <div class="links">
+                    <a href="cost-to-train/output/cost_to_train_interactive.html">Interactive</a>
+                    <a href="cost-to-train/output/cost_to_train_highres.png">PNG</a>
+                    <a href="cost-to-train/output/cost_to_train.svg">SVG</a>
+                    <a href="cost-to-train/data/training_costs.csv">Data</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card new">
+            <a href="dashboard/index.html">
+                <div style="height: 200px; background: #1c1f2e; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
+                    <span style="color: #9ca3af; font-size: 14px;">Unified Dashboard →</span>
+                </div>
+            </a>
+            <div class="card-content">
+                <h2>9. Unified Dashboard</h2>
+                <div class="card-stat"><span class="stat-number">6 lanes</span><span class="stat-label">synchronized timeline</span></div>
+                <p>All plots on one <strong>singularity view</strong>. Zoom from 1M years ago to today.</p>
+                <div class="links">
+                    <a href="dashboard/index.html">Open Dashboard</a>
                 </div>
             </div>
         </div>

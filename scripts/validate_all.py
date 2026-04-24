@@ -66,6 +66,28 @@ PLOTS = [
             'index.html',
         ]
     },
+    {
+        'name': 'ai-benchmark-progress',
+        'csv': 'data/benchmark_data.csv',
+        'meta': 'data/meta.json',
+        'required_files': [
+            'output/benchmark_progress_interactive.html',
+            'output/benchmark_progress_highres.png',
+            'output/benchmark_progress.svg',
+            'index.html',
+        ]
+    },
+    {
+        'name': 'cost-to-train',
+        'csv': 'data/training_costs.csv',
+        'meta': 'data/meta.json',
+        'required_files': [
+            'output/cost_to_train_interactive.html',
+            'output/cost_to_train_highres.png',
+            'output/cost_to_train.svg',
+            'index.html',
+        ]
+    },
 ]
 
 
