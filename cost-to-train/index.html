@@ -9,12 +9,42 @@
 <body data-page="cost">
   <h1>Cost-to-Train Frontier</h1>
   <p class="subtitle">Training cost vs. capability — the efficiency paradox.</p>
+
+  <a href="output/cost_to_train_interactive.html" aria-label="Open Cost to Train interactive plot">
+    <img src="output/cost_to_train_highres.png" alt="Cost to Train chart showing frontier model training cost and capability over time" class="main-image">
+  </a>
+
   <div class="links">
     <a href="output/cost_to_train_interactive.html">Interactive</a>
     <a href="output/cost_to_train_highres.png">PNG</a>
     <a href="output/cost_to_train.svg">SVG</a>
     <a href="data/training_costs.csv">Data</a>
+    <a href="data/meta.json">Metadata</a>
   </div>
+
+  <div class="highlight">
+    <strong>Key insight:</strong> Frontier training FLOPs rise while dollars per FLOP collapse, creating the efficiency paradox.
+  </div>
+
+  <div class="description">
+    <h2>How to Read This Chart</h2>
+    <p>Compare cost, FLOPs, and capability together. Estimated cost rows are useful for trend direction, but should be audited against source notes before making precise claims.</p>
+  </div>
+
+  <div class="companion">
+    <strong>Related:</strong>
+    <a href="../ai-compute-timeline/">AI Compute Timeline</a> |
+    <a href="../model-sizes/">Model Sizes</a>
+  </div>
+
+  <footer>
+    <p>
+      <a href="data/meta.json">meta.json</a> |
+      <a href="https://github.com/mschwar/plots/tree/main/cost-to-train">GitHub</a> |
+      MIT
+    </p>
+  </footer>
+
   <script src="../shared/site.js"></script>
 </body>
 </html>

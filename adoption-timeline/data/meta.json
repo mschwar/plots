@@ -1,34 +1,51 @@
 {
   "title": "Adoption Timeline",
-  "description": "Time to ~50M users adoption, showing exponential compression from years to days (1957-2026).",
+  "description": "Time-to-scale proxies across technology paradigms. The chart labels metric type and comparability so FORTRAN, ARPANET, iPhone, ChatGPT, and agentic tools are not treated as perfectly equivalent.",
   "fields": {
-    "Year": "Launch year of technology/product",
+    "Year": "Launch year of technology or product",
     "Event": "Name of technology or product",
-    "Category": "Tech category (Hardware, Software, Internet/Web, Mobile, Social/Apps, Cloud, AI/Agentic)",
-    "Days_to_Adoption": "Days to reach ~50M users or equivalent adoption milestone",
-    "Impact": "Historical impact level (Transformative, High, Medium, Speculative)"
+    "Category": "Technology category",
+    "Days_to_Adoption": "Days to reach the stated proxy scale",
+    "Impact": "Historical impact level",
+    "adoption_metric_type": "Metric type: users, developers, devices, accounts, installs, or organizations",
+    "comparability_level": "strict_proxy, comparable_proxy, rough_analogy, or projection",
+    "source_id": "Source identifier for auditable rows",
+    "confidence": "Qualitative confidence",
+    "comparability_notes": "Why the proxy is or is not comparable with other rows",
+    "notes": "Additional audit notes"
   },
   "sources": [
     {
+      "id": "statista",
       "name": "Statista",
       "url": "https://www.statista.com/",
       "accessed": "2026-01",
       "notes": "User growth and adoption data"
     },
     {
+      "id": "asymco",
       "name": "Asymco",
       "url": "http://www.asymco.com/",
       "accessed": "2026-01",
       "notes": "Historical technology adoption curves"
     },
     {
+      "id": "epoch",
       "name": "Epoch AI",
       "url": "https://epochai.org/",
       "accessed": "2026-01",
       "notes": "AI adoption metrics"
+    },
+    {
+      "id": "source_review_needed",
+      "name": "Source review needed",
+      "url": "https://github.com/mschwar/plots",
+      "accessed": "2026-04",
+      "notes": "Projection retained for chart continuity but flagged for source review"
     }
   ],
-  "transformations": "Log10(days) for y-axis. Midpoints used for date ranges. Pre-1990 estimates approximate.",
+  "transformations": "Log10(days) for y-axis. Metric types and comparability levels control marker shape. Trend line is a visual guide, not a causal model.",
   "created": "2026-01",
+  "last_updated": "2026-04-24",
   "author": "mschwar"
 }

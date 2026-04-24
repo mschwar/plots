@@ -1,0 +1,8 @@
+group,entity,body_mass_kg,neurons_total,neurons_per_kg,impact,source_id,notes
+Reptiles,Crocodile (90kg example),90,8.3e7,9.22e5,Low,herculano_houzel,Low neuron density; about 20x fewer than birds/mammals same size.
+Birds,Goldcrest (smallest bird),0.0045,1.64e8,3.64e10,High,herculano_houzel,High density outlier in small birds.
+Birds,Corvid/Rook (example),0.5,2e9,4e9,High,herculano_houzel,Primate-like neuron counts in forebrain.
+Mammals,Mouse,0.02,7.1e7,3.55e9,Medium,herculano_houzel,Rodent baseline.
+Mammals,Elephant,4000,2.57e11,6.43e7,High,herculano_houzel,Large absolute count but low neurons per kg.
+Primates,Human,70,8.6e10,1.23e9,Transformative,herculano_houzel,Outlier EQ about 7; 86B neurons.
+Primates,Marmoset (small primate),0.3,1.4e9,4.67e9,High,herculano_houzel,Linear scaling in primates.

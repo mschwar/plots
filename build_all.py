@@ -4,22 +4,11 @@ Build All Plots
 Regenerates all static and interactive visualizations from source.
 """
 
-import os
 import sys
 import subprocess
 from pathlib import Path
 
-# Plot directories (order matters for dependencies)
-PLOT_DIRS = [
-    "ai-compute-timeline",
-    "adoption-timeline",
-    "energetic-scaling",
-    "civilization-scaling",
-    "energy-leverage-per-person",
-    "model-sizes",
-    "ai-benchmark-progress",
-    "cost-to-train",
-]
+from scripts.manifest_utils import plot_entries
 
 
 def run_script(script_path: Path, plot_name: str) -> bool:
@@ -83,7 +72,8 @@ def main():
     total_success = 0
     total_failed = 0
 
-    for plot_name in PLOT_DIRS:
+    for entry in plot_entries(root, published_only=True):
+        plot_name = entry["id"]
         plot_dir = root / plot_name
 
         if not plot_dir.exists():

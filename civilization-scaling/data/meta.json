@@ -1,6 +1,6 @@
 {
   "title": "Scaling Civilization",
-  "description": "Multi-lane log-time timeline showing Energy, Coordination, Memory, and Replication metrics from 1M years ago to 2030+.",
+  "description": "Multi-lane log-time timeline showing Energy, Coordination, Memory, Replication, and Latency metrics from 1M years ago to 2030+.",
   "fields": {
     "Lane": "Metric lane (Energy, Coordination, Memory, Replication, Latency)",
     "Era": "Historical era (Prehistory, Neolithic, Ancient, Pre-Modern, Industrial, Modern, Digital, Future)",
@@ -38,7 +38,21 @@
       "notes": "Technology acceleration patterns"
     }
   ],
-  "transformations": "Log x-axis: -log10(years_ago + 1) to compress prehistory and expand modern era. Log y-axis for each lane.",
+  "lane_glossary": {
+    "Energy": "Energy available per person; higher is more leverage.",
+    "Coordination": "Approximate size of stable coordination group; higher is broader coordination.",
+    "Memory": "Externalized information storage per person; higher is more cumulative memory.",
+    "Replication": "Approximate time to copy an artifact or message; lower is faster replication.",
+    "Latency": "Approximate communication delay; lower is faster coordination."
+  },
+  "metric_direction": {
+    "Energy": "up",
+    "Coordination": "up",
+    "Memory": "up",
+    "Replication": "down",
+    "Latency": "down"
+  },
+  "transformations": "Log x-axis: -log10(years_ago + 1) to compress prehistory and expand modern era. Log y-axis for each lane. Replication and Latency improve as their values decrease.",
   "created": "2026-01",
   "author": "mschwar"
 }

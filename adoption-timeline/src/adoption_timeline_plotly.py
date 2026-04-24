@@ -106,8 +106,13 @@ def create_chart(df, export_mode=False):
         color = CATEGORY_COLORS.get(cat, '#7F8C8D')
 
         sizes = [IMPACT_SIZES.get(imp, 10) for imp in cat_df['Impact']]
-        symbols = ['diamond' if 'Speculative' in str(imp) or yr >= 2026 else 'circle'
-                   for imp, yr in zip(cat_df['Impact'], cat_df['Year'])]
+        symbols = []
+        for _, row in cat_df.iterrows():
+            comparability = str(row.get('comparability_level', 'comparable_proxy'))
+            symbol = 'triangle-up' if comparability == 'rough_analogy' else ('square' if comparability == 'projection' else 'circle')
+            if 'Speculative' in str(row['Impact']) or row['Year'] >= 2026:
+                symbol = 'diamond'
+            symbols.append(symbol)
 
         # Rich hover template
         hover_texts = [
@@ -115,7 +120,10 @@ def create_chart(df, export_mode=False):
             f"Year: {row['Year']}<br>"
             f"Time to 50M: <b>{days_to_readable(row['Days_to_Adoption'])}</b><br>"
             f"Category: {row['Category']}<br>"
-            f"Impact: {row['Impact']}"
+            f"Metric type: {row.get('adoption_metric_type', 'unknown')}<br>"
+            f"Comparability: {row.get('comparability_level', 'unknown')}<br>"
+            f"Impact: {row['Impact']}<br>"
+            f"Notes: {row.get('comparability_notes', '')}"
             for _, row in cat_df.iterrows()
         ]
 
@@ -171,8 +179,8 @@ def create_chart(df, export_mode=False):
 
     fig.update_layout(
         title=dict(
-            text='<b>Time to Mass Adoption</b><br>'
-                 '<sup>Days to ~50M Users (1957–2026)</sup>',
+            text='<b>Time-to-Scale Proxy Across Tech Paradigms</b><br>'
+                 '<sup>Metric types differ: users, developers, devices, accounts, and organizations</sup>',
             x=0.5,
             font=dict(size=18)
         ),
@@ -183,7 +191,7 @@ def create_chart(df, export_mode=False):
             gridcolor='rgba(128,128,128,0.15)'
         ),
         yaxis=dict(
-            title='Days to ~50M Users',
+            title='Days to scale proxy',
             type='log',
             range=[1, 4],
             gridcolor='rgba(128,128,128,0.2)',
@@ -210,8 +218,8 @@ def create_chart(df, export_mode=False):
     # Caption below chart (not inside canvas)
     if not export_mode:
         fig.add_annotation(
-            text="Adoption times compressed from ~10 years (1957) to ~60 days (ChatGPT). "
-                 "Trend line is visual guide, not causal model. "
+            text="Footnote: adoption proxies are not directly equivalent across paradigms. "
+                 "Marker shapes distinguish rough analogies and projections; trend line is a visual guide, not causal model. "
                  "Sources: Statista, Asymco, Epoch AI.",
             xref='paper', yref='paper',
             x=0.5, y=-0.12,

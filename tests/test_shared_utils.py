@@ -18,5 +18,17 @@ class TestAdoptionTimelineData:
             reader = csv.reader(f)
             headers = next(reader)
 
-        expected = ["Year", "Event", "Category", "Days_to_Adoption", "Impact"]
-        assert headers == expected, f"Unexpected headers: {headers}"
+        expected_required = {
+            "Year",
+            "Event",
+            "Category",
+            "Days_to_Adoption",
+            "Impact",
+            "adoption_metric_type",
+            "comparability_level",
+            "source_id",
+            "confidence",
+            "comparability_notes",
+            "notes",
+        }
+        assert expected_required.issubset(set(headers)), f"Unexpected headers: {headers}"
