@@ -12,9 +12,9 @@
     </div>
 
     <h1>AI Compute Timeline</h1>
-    <p class="subtitle">Training FLOPs for Key AI Milestones (1900–2026)</p>
+    <p class="subtitle">Training FLOPs, proxies, estimates, and speculative projections (1900–2026)</p>
 
-    <a href="output/ai_compute_timeline_interactive.html">
+    <a href="output/ai_compute_timeline_interactive.html" aria-label="Open AI Compute Timeline interactive plot">
         <img src="output/ai_compute_timeline_highres.png" alt="AI Compute Timeline" class="main-image">
     </a>
 
@@ -32,13 +32,15 @@
 
     <div class="description">
         <h2>About</h2>
-        <p>Semi-log timeline showing exponential growth in AI training compute from early vacuum tubes to frontier models.</p>
+        <p>Semi-log timeline showing growth in AI training compute from early vacuum tubes to frontier models, while keeping ops/sec proxies and speculative points visually distinct.</p>
         <ul>
-            <li>50 milestones from 1904 to 2026</li>
-            <li>Color by category (Hardware, Model, Infrastructure)</li>
-            <li>Size by impact (Transformative > High > Medium)</li>
-            <li>Dashed pre-2010 = proxy values; solid post-2010 = actual training FLOPs</li>
+            <li>Observed, estimated, proxy, projection, and speculative rows are separate data states</li>
+            <li>Static chart is split into 1900–2011 foundations and 2012–2026 frontier scaling</li>
+            <li>Plotly hover text carries dense labels and source caveats</li>
         </ul>
+
+        <h2>How to Read This Chart</h2>
+        <p>Circle markers are observed or estimated history. Squares are proxies. Triangles and diamonds are projections or speculative rows. Use the legend to hide or show speculative points in the interactive chart.</p>
     </div>
 
     <div class="companion">

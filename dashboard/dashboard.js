@@ -1,43 +1,57 @@
 /**
- * Unified Dashboard — Singularity View
- * Multi-lane timeline showing all exponential progress plots.
+ * Unified Dashboard — manifest-driven synchronized atlas view.
  */
 
-const LANES = [
-  { id: 'energy', name: 'Energy Leverage', color: '#f59e0b', csv: '../energy-leverage-per-person/data/energy_leverage_datapoints.csv' },
-  { id: 'compute', name: 'AI Compute (FLOPs)', color: '#60a5fa', csv: '../ai-compute-timeline/data/ai_milestones.csv' },
-  { id: 'models', name: 'LLM Model Sizes', color: '#a78bfa', csv: '../model-sizes/data/llm_model_sizes.csv' },
-  { id: 'benchmarks', name: 'AI Benchmarks', color: '#34d399', csv: '../ai-benchmark-progress/data/benchmark_data.csv' },
-  { id: 'adoption', name: 'Tech Adoption Speed', color: '#f472b6', csv: '../adoption-timeline/data/tech_adoption.csv' },
-  { id: 'civilization', name: 'Civilization Phases', color: '#e8eaf6', csv: '../civilization-scaling/data/civilization_metrics.csv' },
+const COLORS = [
+  '#60a5fa', '#f472b6', '#34d399', '#e8eaf6', '#f59e0b',
+  '#a78bfa', '#22c55e', '#fb7185'
 ];
 
-const MARGIN = { top: 20, right: 40, bottom: 40, left: 120 };
+const MARGIN = { top: 20, right: 40, bottom: 40, left: 150 };
 const LANE_HEIGHT = 80;
 const WIDTH = 1400 - MARGIN.left - MARGIN.right;
 const TIME_DOMAIN = [-1000000, 2030];
 
-async function loadCSV(url) {
+async function loadText(url) {
   const response = await fetch(url);
-  const text = await response.text();
-  return d3.csvParse(text);
+  if (!response.ok) {
+    throw new Error(`${url}: ${response.status}`);
+  }
+  return response.text();
 }
 
-function parseYear(value) {
-  if (!value) return null;
-  const num = parseFloat(value);
-  if (isNaN(num)) return null;
-  return num;
+async function loadManifest() {
+  const text = await loadText('../plots_manifest.json');
+  return JSON.parse(text)
+    .filter(entry => entry.status === 'published' && entry.kind !== 'dashboard')
+    .sort((a, b) => a.order - b.order);
+}
+
+async function loadCSV(url) {
+  return d3.csvParse(await loadText(url));
+}
+
+function parseYear(row) {
+  const raw = row.year || row.Year || row.Years_Ago || row.date;
+  if (!raw) return null;
+  if (row.Years_Ago) return 2026 - parseFloat(raw);
+  const value = parseFloat(String(raw).slice(0, 4));
+  return Number.isFinite(value) ? value : null;
+}
+
+function eventName(row) {
+  return row.event || row.Event || row.Model || row.name || row.label || row.Benchmark || 'Event';
 }
 
 function initDashboard() {
   const container = d3.select('#dashboard-container');
   const tooltip = d3.select('body').append('div').attr('class', 'tooltip');
 
-  const totalHeight = LANES.length * (LANE_HEIGHT + 20) + MARGIN.top + MARGIN.bottom;
+  const totalHeight = 8 * (LANE_HEIGHT + 20) + MARGIN.top + MARGIN.bottom;
   const svg = container.append('svg')
-    .attr('width', WIDTH + MARGIN.left + MARGIN.right)
-    .attr('height', totalHeight);
+    .attr('viewBox', `0 0 ${WIDTH + MARGIN.left + MARGIN.right} ${totalHeight}`)
+    .attr('role', 'img')
+    .attr('aria-label', 'Unified dashboard of published Exponential Progress Atlas timelines');
 
   const g = svg.append('g')
     .attr('transform', `translate(${MARGIN.left},${MARGIN.top})`);
@@ -47,14 +61,23 @@ function initDashboard() {
     .range([0, WIDTH])
     .constant(1000);
 
-  Promise.all(LANES.map(lane => loadCSV(lane.csv).then(data => ({ ...lane, data }))))
+  loadManifest()
+    .then(entries => Promise.all(entries.map((entry, index) => (
+      loadCSV(`../${entry.data}`).then(data => ({
+        id: entry.id,
+        name: entry.short_title,
+        title: entry.title,
+        color: COLORS[index % COLORS.length],
+        data,
+      }))
+    ))))
     .then(lanesWithData => {
       renderLanes(g, lanesWithData, xScale, tooltip);
     })
     .catch(err => {
       console.error('Failed to load dashboard data:', err);
-      container.append('p').style('color', '#ef4444')
-        .text('Error loading dashboard data. Ensure CSV files are accessible.');
+      container.append('p').attr('class', 'error')
+        .text('Error loading dashboard data. Ensure manifest and CSV files are accessible.');
     });
 }
 
@@ -80,10 +103,10 @@ function renderLanes(g, lanes, xScale, tooltip) {
 
     const events = lane.data
       .map(d => {
-        const year = parseYear(d.Year || d.year || d.date);
-        return year ? { ...d, year } : null;
+        const year = parseYear(d);
+        return year === null ? null : { ...d, year };
       })
-      .filter(d => d !== null)
+      .filter(Boolean)
       .sort((a, b) => a.year - b.year);
 
     laneG.selectAll('.event-dot')
@@ -93,15 +116,15 @@ function renderLanes(g, lanes, xScale, tooltip) {
       .attr('class', 'event-dot')
       .attr('cx', d => xScale(d.year))
       .attr('cy', LANE_HEIGHT / 2)
-      .attr('r', 4)
+      .attr('r', d => (String(d.estimate_status || d.Impact || '').toLowerCase().includes('speculative') ? 5 : 4))
       .attr('fill', lane.color)
-      .attr('opacity', 0.8)
+      .attr('opacity', d => (String(d.estimate_status || d.Impact || '').toLowerCase().includes('speculative') ? 0.55 : 0.85))
       .on('mouseover', function(event, d) {
         d3.select(this).attr('r', 7).attr('opacity', 1);
         tooltip.style('opacity', 1)
           .style('left', (event.pageX + 10) + 'px')
           .style('top', (event.pageY - 10) + 'px')
-          .html(`<strong>${d.Event || d.Model || d.name || 'Event'}</strong><br/>Year: ${d.year}`);
+          .html(`<strong>${eventName(d)}</strong><br/>${lane.title}<br/>Year: ${d.year}`);
       })
       .on('mouseout', function() {
         d3.select(this).attr('r', 4).attr('opacity', 0.8);
@@ -125,7 +148,7 @@ function renderLanes(g, lanes, xScale, tooltip) {
     .attr('text-anchor', 'middle')
     .attr('fill', '#9ca3af')
     .attr('font-size', '13px')
-    .text('Time (years, log scale) →');
+    .text('Time (years, symlog scale) ->');
 }
 
 if (document.readyState === 'loading') {

@@ -14,12 +14,14 @@
     <h1>LLM Model Sizes Over Time</h1>
     <p class="subtitle">Parameter counts from 2019 – 2026 &nbsp;·&nbsp; Log scale &nbsp;·&nbsp; 38 models across 11 organizations</p>
 
-    <a href="output/model_sizes_interactive.html">
+    <a href="output/model_sizes_interactive.html" aria-label="Open Model Sizes interactive plot">
         <img src="output/model_sizes_highres.png" alt="LLM Model Sizes Over Time" class="main-image">
     </a>
 
     <div class="links">
-        <a href="output/model_sizes_interactive.html">Interactive (D3)</a>
+        <a href="output/model_sizes_interactive.html">Interactive</a>
+        <a href="output/model_sizes_highres.png">PNG</a>
+        <a href="output/model_sizes.svg">SVG</a>
         <a href="data/llm_model_sizes.csv">Data (CSV)</a>
         <a href="data/meta.json">Metadata</a>
     </div>
@@ -53,6 +55,9 @@
             <li>Era bands: Pre-ChatGPT / Foundation Models / Open Weights / Reasoning &amp; Agents</li>
         </ul>
         <p><strong>Caveat:</strong> No frontier lab has disclosed official parameter counts since GPT-3 (2020). All 2023+ values are community estimates derived from leaks, compute analysis, and scaling projections.</p>
+
+        <h2>How to Read This Chart</h2>
+        <p>Circles are disclosed counts. Diamonds are estimates. Open markers indicate unreleased or not publicly available models. Treat frontier values after GPT-3 as estimates unless the data row says otherwise.</p>
     </div>
 
     <div class="companion">

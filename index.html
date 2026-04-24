@@ -3,215 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plots – Interactive Timelines of Exponential Tech Progress</title>
-    <meta name="description" content="Six interactive data visualizations exploring exponential tech progress: AI compute, adoption speed, energetic efficiency, civilization scaling, energy leverage, and LLM model sizes.">
+    <title>Exponential Progress Atlas</title>
+    <meta name="description" content="Interactive timelines showing how compute, energy, coordination, memory, and adoption compound into civilizational acceleration.">
     <link rel="stylesheet" href="shared/site.css">
     <style>
-        /* Homepage overrides */
         body { max-width: 1200px; }
-        h1 { font-size: 2.2rem; }
     </style>
 </head>
-<body data-page="home">
-    <h1>Plots</h1>
-    <p class="subtitle">Six interactive timelines exploring exponential tech progress: compute power, adoption speed, energetic efficiency, civilization scaling, energy leverage, and LLM model sizes.</p>
+<body data-page="home" data-published-count="9">
+    <header class="hero">
+        <p class="eyebrow">Manifest-driven data visualization atlas</p>
+        <h1>Exponential Progress Atlas</h1>
+        <p class="subtitle">Interactive timelines showing how compute, energy, coordination, memory, and adoption compound into civilizational acceleration.</p>
+        <nav class="quick-links" aria-label="Published atlas entries">
+            <strong>9 published entries:</strong>
+        <a href="ai-compute-timeline/output/ai_compute_timeline_interactive.html">AI Compute</a>
+        <a href="adoption-timeline/output/adoption_timeline_interactive.html">Adoption</a>
+        <a href="energetic-scaling/output/energetic_scaling_interactive.html">Energetic</a>
+        <a href="civilization-scaling/output/civilization_scaling_interactive.html">Civilization</a>
+        <a href="energy-leverage-per-person/output/energy_leverage_interactive.html">Energy Leverage</a>
+        <a href="model-sizes/output/model_sizes_interactive.html">Model Sizes</a>
+        <a href="ai-benchmark-progress/output/benchmark_progress_interactive.html">AI Benchmarks</a>
+        <a href="cost-to-train/output/cost_to_train_interactive.html">Cost to Train</a>
+        <a href="dashboard/index.html">Dashboard</a>
+        </nav>
+    </header>
 
-    <div class="quick-links">
-        <strong>Quick Links:</strong>
-        <a href="ai-compute-timeline/output/ai_compute_timeline_interactive.html">AI Compute</a> |
-        <a href="adoption-timeline/output/adoption_timeline_interactive.html">Adoption</a> |
-        <a href="energetic-scaling/output/energetic_scaling_interactive.html">Energetic</a> |
-        <a href="civilization-scaling/output/civilization_scaling_interactive.html">Civilization</a> |
-        <a href="energy-leverage-per-person/output/energy_leverage_interactive.html">Energy Leverage</a> |
-        <a href="ai-benchmark-progress/output/benchmark_progress_interactive.html">AI Benchmarks</a> |
-        <a href="cost-to-train/output/cost_to_train_interactive.html">Cost to Train</a> |
-        <a href="dashboard/index.html">Dashboard</a> |
-    </div>
+    <section class="thesis" aria-labelledby="thesis-title">
+        <h2 id="thesis-title">Atlas Thesis</h2>
+        <div class="thesis-flow" aria-label="Compute, energy, coordination, memory, and adoption feed capability acceleration">
+            <span>Energy</span>
+            <span>Compute</span>
+            <span>Memory</span>
+            <span>Coordination</span>
+            <span>Adoption</span>
+            <strong>Capability Acceleration</strong>
+        </div>
+        <p>Each chart is an audit surface: historical observations, estimates, proxies, and speculative projections are labeled so the story remains readable without hiding uncertainty.</p>
+    </section>
 
-    <div class="cards">
-        <div class="card">
-            <a href="ai-compute-timeline/output/ai_compute_timeline_interactive.html">
-                <img src="ai-compute-timeline/output/ai_compute_timeline_highres.png" alt="AI Compute Timeline">
+    <section class="description" aria-labelledby="read-title">
+        <h2 id="read-title">How to Read These Charts</h2>
+        <p>Log scales turn multiplicative change into visible slopes. Circle markers indicate observed or estimated history; alternate markers and badges identify proxies, forecasts, and source-review needs. Use the interactive links for hover text and the data links to inspect source fields directly.</p>
+    </section>
+
+    <main class="cards" aria-label="Published atlas cards">
+        <article class="card" data-plot-id="ai-compute-timeline">
+            <a class="card-media" href="ai-compute-timeline/output/ai_compute_timeline_interactive.html" aria-label="Open AI Compute Timeline interactive plot">
+                <img src="ai-compute-timeline/output/ai_compute_timeline_highres.png" alt="AI Compute Timeline chart preview for the Exponential Progress Atlas">
             </a>
             <div class="card-content">
-                <h2>1. AI Compute Timeline</h2>
-                <div class="card-stat"><span class="stat-number">10²⁷</span><span class="stat-label">FLOPs frontier 2026</span></div>
-                <p>Training FLOPs from vacuum tubes to frontier models. Exponential <strong>growth</strong>.</p>
+                <div class="card-kicker">1. AI Compute</div>
+                <h2>AI Compute Timeline</h2>
+                <div class="badges"><span class="badge">Historical</span><span class="badge">Estimated</span><span class="badge">Speculative</span></div>
+                <div class="card-stat"><span class="stat-number">10^27+ FLOPs</span><span class="stat-label">Data confidence: Mixed</span></div>
+                <p>Training compute from early electronic computing to frontier AI, with proxies and speculative projections labeled separately.</p>
                 <div class="links">
                     <a href="ai-compute-timeline/output/ai_compute_timeline_interactive.html">Interactive</a>
                     <a href="ai-compute-timeline/output/ai_compute_timeline_highres.png">PNG</a>
                     <a href="ai-compute-timeline/output/ai_compute_timeline.svg">SVG</a>
                     <a href="ai-compute-timeline/data/ai_milestones.csv">Data</a>
+                    <a href="ai-compute-timeline/data/meta.json">Metadata</a>
                 </div>
             </div>
-        </div>
+        </article>
 
-        <div class="card">
-            <a href="adoption-timeline/output/adoption_timeline_interactive.html">
-                <img src="adoption-timeline/output/adoption_timeline_highres.png" alt="Adoption Timeline">
+        <article class="card" data-plot-id="adoption-timeline">
+            <a class="card-media" href="adoption-timeline/output/adoption_timeline_interactive.html" aria-label="Open Adoption Timeline interactive plot">
+                <img src="adoption-timeline/output/adoption_timeline_highres.png" alt="Adoption Timeline chart preview for the Exponential Progress Atlas">
             </a>
             <div class="card-content">
-                <h2>2. Adoption Timeline</h2>
-                <div class="card-stat"><span class="stat-number">60×</span><span class="stat-label">faster adoption since 1969</span></div>
-                <p>Time to ~50M users: years → days. Exponential <strong>compression</strong>.</p>
+                <div class="card-kicker">2. Adoption</div>
+                <h2>Adoption Timeline</h2>
+                <div class="badges"><span class="badge">Historical</span><span class="badge">Estimated</span><span class="badge">Speculative</span></div>
+                <div class="card-stat"><span class="stat-number">60x faster</span><span class="stat-label">Data confidence: Mixed</span></div>
+                <p>Time-to-scale proxies across computing, connectivity, mobile, cloud, and AI paradigms.</p>
                 <div class="links">
                     <a href="adoption-timeline/output/adoption_timeline_interactive.html">Interactive</a>
                     <a href="adoption-timeline/output/adoption_timeline_highres.png">PNG</a>
                     <a href="adoption-timeline/output/adoption_timeline.svg">SVG</a>
                     <a href="adoption-timeline/data/tech_adoption.csv">Data</a>
+                    <a href="adoption-timeline/data/meta.json">Metadata</a>
                 </div>
             </div>
-        </div>
+        </article>
 
-        <div class="card">
-            <a href="energetic-scaling/output/energetic_scaling_interactive.html">
-                <img src="energetic-scaling/output/energetic_scaling_highres.png" alt="Energetic Scaling">
+        <article class="card" data-plot-id="energetic-scaling">
+            <a class="card-media" href="energetic-scaling/output/energetic_scaling_interactive.html" aria-label="Open Energetic Scaling interactive plot">
+                <img src="energetic-scaling/output/energetic_scaling_highres.png" alt="Energetic Scaling chart preview for the Exponential Progress Atlas">
             </a>
             <div class="card-content">
-                <h2>3. Energetic Scaling</h2>
-                <div class="card-stat"><span class="stat-number">10⁶×</span><span class="stat-label">efficiency gain per dollar</span></div>
-                <p>Neurons/kg vs cps/$. <strong>Power laws</strong> – humans & AI as outliers.</p>
+                <div class="card-kicker">3. Energetic</div>
+                <h2>Energetic Scaling</h2>
+                <div class="badges"><span class="badge">Historical</span><span class="badge">Estimated</span><span class="badge">Speculative</span></div>
+                <div class="card-stat"><span class="stat-number">10^6x+ efficiency</span><span class="stat-label">Data confidence: Mixed</span></div>
+                <p>Biology, hardware efficiency, AI training compute, and foraging energetics compared with clean source datasets.</p>
                 <div class="links">
                     <a href="energetic-scaling/output/energetic_scaling_interactive.html">Interactive</a>
                     <a href="energetic-scaling/output/energetic_scaling_highres.png">PNG</a>
                     <a href="energetic-scaling/output/energetic_scaling.svg">SVG</a>
                     <a href="energetic-scaling/data/scaling_data.csv">Data</a>
+                    <a href="energetic-scaling/data/meta.json">Metadata</a>
                 </div>
             </div>
-        </div>
+        </article>
 
-        <div class="card">
-            <a href="civilization-scaling/output/civilization_scaling_interactive.html">
-                <img src="civilization-scaling/output/civilization_scaling_highres.png" alt="Civilization Scaling">
+        <article class="card" data-plot-id="civilization-scaling">
+            <a class="card-media" href="civilization-scaling/output/civilization_scaling_interactive.html" aria-label="Open Civilization Scaling interactive plot">
+                <img src="civilization-scaling/output/civilization_scaling_highres.png" alt="Civilization Scaling chart preview for the Exponential Progress Atlas">
             </a>
             <div class="card-content">
-                <h2>4. Civilization Scaling</h2>
-                <div class="card-stat"><span class="stat-number">1M yrs</span><span class="stat-label">of infrastructure stacking</span></div>
-                <p>Energy/Coord/Memory/Repl over 1M years. <strong>Stacking</strong> infrastructure.</p>
+                <div class="card-kicker">4. Civilization</div>
+                <h2>Civilization Scaling</h2>
+                <div class="badges"><span class="badge">Historical</span><span class="badge">Estimated</span><span class="badge">Speculative</span></div>
+                <div class="card-stat"><span class="stat-number">5 lanes</span><span class="stat-label">Data confidence: Mixed</span></div>
+                <p>Five civilizational lanes: energy, coordination, memory, replication, and latency over log-time.</p>
                 <div class="links">
                     <a href="civilization-scaling/output/civilization_scaling_interactive.html">Interactive</a>
                     <a href="civilization-scaling/output/civilization_scaling_highres.png">PNG</a>
                     <a href="civilization-scaling/output/civilization_scaling.svg">SVG</a>
                     <a href="civilization-scaling/data/civilization_metrics.csv">Data</a>
+                    <a href="civilization-scaling/data/meta.json">Metadata</a>
                 </div>
             </div>
-        </div>
+        </article>
 
-        <div class="card">
-            <a href="energy-leverage-per-person/output/energy_leverage_interactive.html">
-                <img src="energy-leverage-per-person/output/energy_leverage_highres.png" alt="Energy Leverage">
+        <article class="card" data-plot-id="energy-leverage-per-person">
+            <a class="card-media" href="energy-leverage-per-person/output/energy_leverage_interactive.html" aria-label="Open Energy Leverage interactive plot">
+                <img src="energy-leverage-per-person/output/energy_leverage_highres.png" alt="Energy Leverage chart preview for the Exponential Progress Atlas">
             </a>
             <div class="card-content">
-                <h2>5. Energy Leverage</h2>
-                <div class="card-stat"><span class="stat-number">17×</span><span class="stat-label">metabolic baseline 2024</span></div>
-                <p>From ~2× to ~17× metabolic baseline. <strong>Energy multiplier</strong> growth.</p>
+                <div class="card-kicker">5. Energy Leverage</div>
+                <h2>Energy Leverage</h2>
+                <div class="badges"><span class="badge">Historical</span><span class="badge">High confidence</span></div>
+                <div class="card-stat"><span class="stat-number">17x body energy</span><span class="stat-label">Data confidence: High</span></div>
+                <p>Per-person energy command relative to the metabolic baseline, with period anchors labeled explicitly.</p>
                 <div class="links">
                     <a href="energy-leverage-per-person/output/energy_leverage_interactive.html">Interactive</a>
                     <a href="energy-leverage-per-person/output/energy_leverage_highres.png">PNG</a>
                     <a href="energy-leverage-per-person/output/energy_leverage.svg">SVG</a>
                     <a href="energy-leverage-per-person/data/energy_leverage_datapoints.csv">Data</a>
+                    <a href="energy-leverage-per-person/data/meta.json">Metadata</a>
                 </div>
             </div>
-        </div>
+        </article>
 
-        <div class="card">
-            <a href="ai-benchmark-progress/output/benchmark_progress_interactive.html">
-                <img src="ai-benchmark-progress/output/benchmark_progress_highres.png" alt="AI Benchmark Progress">
+        <article class="card" data-plot-id="model-sizes">
+            <a class="card-media" href="model-sizes/output/model_sizes_interactive.html" aria-label="Open Model Sizes interactive plot">
+                <img src="model-sizes/output/model_sizes_highres.png" alt="Model Sizes chart preview for the Exponential Progress Atlas">
             </a>
             <div class="card-content">
-                <h2>7. AI Benchmark Progress</h2>
-                <div class="card-stat"><span class="stat-number">4×</span><span class="stat-label">benchmarks crossed human-level</span></div>
-                <p>MMLU, HumanEval, SWE-bench, ARC-AGI crossing human baselines. <strong>Capability compression</strong>.</p>
+                <div class="card-kicker">6. Model Sizes</div>
+                <h2>Model Sizes</h2>
+                <div class="badges"><span class="badge">Estimated</span><span class="badge">Speculative</span><span class="badge">Needs source review</span></div>
+                <div class="card-stat"><span class="stat-number">1.5B -&gt; 5T params</span><span class="stat-label">Data confidence: Speculative</span></div>
+                <p>Language model parameter counts over time, separating disclosed counts from estimates and unreleased projections.</p>
+                <div class="links">
+                    <a href="model-sizes/output/model_sizes_interactive.html">Interactive</a>
+                    <a href="model-sizes/output/model_sizes_highres.png">PNG</a>
+                    <a href="model-sizes/output/model_sizes.svg">SVG</a>
+                    <a href="model-sizes/data/llm_model_sizes.csv">Data</a>
+                    <a href="model-sizes/data/meta.json">Metadata</a>
+                </div>
+            </div>
+        </article>
+
+        <article class="card" data-plot-id="ai-benchmark-progress">
+            <a class="card-media" href="ai-benchmark-progress/output/benchmark_progress_interactive.html" aria-label="Open AI Benchmark Progress interactive plot">
+                <img src="ai-benchmark-progress/output/benchmark_progress_highres.png" alt="AI Benchmark Progress chart preview for the Exponential Progress Atlas">
+            </a>
+            <div class="card-content">
+                <div class="card-kicker">7. AI Benchmarks</div>
+                <h2>AI Benchmark Progress</h2>
+                <div class="badges"><span class="badge">Historical</span><span class="badge">Estimated</span><span class="badge">Speculative</span></div>
+                <div class="card-stat"><span class="stat-number">4 benchmark lanes</span><span class="stat-label">Data confidence: Mixed</span></div>
+                <p>Benchmark progress against human baselines across knowledge, coding, software engineering, and reasoning tasks.</p>
                 <div class="links">
                     <a href="ai-benchmark-progress/output/benchmark_progress_interactive.html">Interactive</a>
                     <a href="ai-benchmark-progress/output/benchmark_progress_highres.png">PNG</a>
                     <a href="ai-benchmark-progress/output/benchmark_progress.svg">SVG</a>
                     <a href="ai-benchmark-progress/data/benchmark_data.csv">Data</a>
+                    <a href="ai-benchmark-progress/data/meta.json">Metadata</a>
                 </div>
             </div>
-        </div>
+        </article>
 
-        <div class="card">
-            <a href="cost-to-train/output/cost_to_train_interactive.html">
-                <img src="cost-to-train/output/cost_to_train_highres.png" alt="Cost to Train">
+        <article class="card" data-plot-id="cost-to-train">
+            <a class="card-media" href="cost-to-train/output/cost_to_train_interactive.html" aria-label="Open Cost to Train interactive plot">
+                <img src="cost-to-train/output/cost_to_train_highres.png" alt="Cost to Train chart preview for the Exponential Progress Atlas">
             </a>
             <div class="card-content">
-                <h2>8. Cost-to-Train Frontier</h2>
-                <div class="card-stat"><span class="stat-number">10²¹×</span><span class="stat-label">cheaper per FLOP since 2012</span></div>
-                <p>FLOPs explode but $/FLOP collapses. The <strong>efficiency paradox</strong>.</p>
+                <div class="card-kicker">8. Cost to Train</div>
+                <h2>Cost to Train</h2>
+                <div class="badges"><span class="badge">Historical</span><span class="badge">Estimated</span><span class="badge">Speculative</span></div>
+                <div class="card-stat"><span class="stat-number">$/FLOP collapse</span><span class="stat-label">Data confidence: Mixed</span></div>
+                <p>Training cost, FLOPs, and capability over time, showing the efficiency paradox at the frontier.</p>
                 <div class="links">
                     <a href="cost-to-train/output/cost_to_train_interactive.html">Interactive</a>
                     <a href="cost-to-train/output/cost_to_train_highres.png">PNG</a>
                     <a href="cost-to-train/output/cost_to_train.svg">SVG</a>
                     <a href="cost-to-train/data/training_costs.csv">Data</a>
+                    <a href="cost-to-train/data/meta.json">Metadata</a>
                 </div>
             </div>
-        </div>
+        </article>
 
-        <div class="card new">
-            <a href="dashboard/index.html">
-                <div style="height: 200px; background: #1c1f2e; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
-                    <span style="color: #9ca3af; font-size: 14px;">Unified Dashboard →</span>
-                </div>
+        <article class="card" data-plot-id="dashboard">
+            <a class="card-media" href="dashboard/index.html" aria-label="Open Unified Dashboard">
+                <div class="dashboard-preview" role="img" aria-label="Unified Dashboard timeline preview">Unified Dashboard</div>
             </a>
             <div class="card-content">
-                <h2>9. Unified Dashboard</h2>
-                <div class="card-stat"><span class="stat-number">6 lanes</span><span class="stat-label">synchronized timeline</span></div>
-                <p>All plots on one <strong>singularity view</strong>. Zoom from 1M years ago to today.</p>
+                <div class="card-kicker">9. Dashboard</div>
+                <h2>Unified Dashboard</h2>
+                <div class="badges"><span class="badge">Historical</span><span class="badge">Estimated</span><span class="badge">Speculative</span></div>
+                <div class="card-stat"><span class="stat-number">9 atlas entries</span><span class="stat-label">Data confidence: Mixed</span></div>
+                <p>A synchronized overview of the atlas inventory using the same manifest as the homepage, README, build, and validator.</p>
                 <div class="links">
-                    <a href="dashboard/index.html">Open Dashboard</a>
+                    <a href="dashboard/index.html">Interactive</a>
+                    <a href="plots_manifest.json">Data</a>
+                    <a href="plots_manifest.json">Metadata</a>
                 </div>
             </div>
-        </div>
-    </div>
+        </article>
+    </main>
 
-    <div class="why-section">
-        <h2>Why These Plots?</h2>
+    <section class="why-section" aria-labelledby="inventory-title">
+        <h2 id="inventory-title">Canonical Inventory</h2>
         <table>
-            <tr>
-                <th>Plot</th>
-                <th>Shows</th>
-                <th>Trend</th>
-            </tr>
-            <tr>
-                <td><strong>Compute</strong></td>
-                <td>Training FLOPs (10⁰ → 10²⁷)</td>
-                <td>Exponential <em>growth</em> ↑</td>
-            </tr>
-            <tr>
-                <td><strong>Adoption</strong></td>
-                <td>Time to 50M users</td>
-                <td>Exponential <em>compression</em> ↓</td>
-            </tr>
-            <tr>
-                <td><strong>Energetic</strong></td>
-                <td>Neurons/kg & cps/$</td>
-                <td><em>Power laws</em> (log-log)</td>
-            </tr>
-            <tr>
-                <td><strong>Civilization</strong></td>
-                <td>Energy/Coord/Memory/Repl</td>
-                <td><em>Stacking</em> infrastructure</td>
-            </tr>
-            <tr>
-                <td><strong>Energy Leverage</strong></td>
-                <td>Watts/person vs metabolic</td>
-                <td><em>~17× body energy</em></td>
-            </tr>
-            <tr>
-                <td><strong>Model Sizes</strong></td>
-                <td>LLM params (1.5B → 5T)</td>
-                <td>Exponential <em>growth</em> ↑</td>
-            </tr>
+            <thead>
+                <tr><th>#</th><th>Entry</th><th>Scope</th><th>Confidence</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td><strong>AI Compute Timeline</strong></td><td>Training compute from early electronic computing to frontier AI, with proxies and speculative projections labeled separately.</td><td>mixed</td></tr>
+                <tr><td>2</td><td><strong>Adoption Timeline</strong></td><td>Time-to-scale proxies across computing, connectivity, mobile, cloud, and AI paradigms.</td><td>mixed</td></tr>
+                <tr><td>3</td><td><strong>Energetic Scaling</strong></td><td>Biology, hardware efficiency, AI training compute, and foraging energetics compared with clean source datasets.</td><td>mixed</td></tr>
+                <tr><td>4</td><td><strong>Civilization Scaling</strong></td><td>Five civilizational lanes: energy, coordination, memory, replication, and latency over log-time.</td><td>mixed</td></tr>
+                <tr><td>5</td><td><strong>Energy Leverage</strong></td><td>Per-person energy command relative to the metabolic baseline, with period anchors labeled explicitly.</td><td>high</td></tr>
+                <tr><td>6</td><td><strong>Model Sizes</strong></td><td>Language model parameter counts over time, separating disclosed counts from estimates and unreleased projections.</td><td>speculative</td></tr>
+                <tr><td>7</td><td><strong>AI Benchmark Progress</strong></td><td>Benchmark progress against human baselines across knowledge, coding, software engineering, and reasoning tasks.</td><td>mixed</td></tr>
+                <tr><td>8</td><td><strong>Cost to Train</strong></td><td>Training cost, FLOPs, and capability over time, showing the efficiency paradox at the frontier.</td><td>mixed</td></tr>
+                <tr><td>9</td><td><strong>Unified Dashboard</strong></td><td>A synchronized overview of the atlas inventory using the same manifest as the homepage, README, build, and validator.</td><td>mixed</td></tr>
+            </tbody>
         </table>
-        <p>Together they show how scaling laws drive exponential progress – in biology, hardware, AI, and energy. Infrastructure layers stack to enable each leap.</p>
-        <p>Inspired by Kurzweil, <a href="https://epochai.org/">Epoch AI</a>, <a href="https://www.statista.com/">Statista</a>, Herculano-Houzel, Smil.</p>
-    </div>
+    </section>
 
     <footer>
         <p>
-            Sources: See each plot's <code>data/meta.json</code> |
-            Built with Plotly, Matplotlib & D3.js |
+            Inventory: <a href="plots_manifest.json">plots_manifest.json</a> |
+            Built with Plotly, Matplotlib, D3.js |
             <a href="https://github.com/mschwar/plots">GitHub</a> |
             MIT License
         </p>

@@ -1,0 +1,4 @@
+year,system,training_flops,impact,source_id,notes
+2012,AlexNet,6e17,High,epoch,Deep learning breakthrough.
+2020,GPT-3,3.14e23,High,epoch,Scaling era.
+2026,Grok-4 estimated,5e26,Transformative,source_review_needed,Frontier estimate retained for comparison; needs source review.

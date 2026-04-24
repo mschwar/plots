@@ -1,6 +1,6 @@
 {
   "title": "Energetic Scaling: Biology vs. Technology",
-  "description": "Dual-panel comparison: biological neural efficiency (neurons/kg vs body mass) and technological compute efficiency (cps/$ vs time).",
+  "description": "Dual-panel comparison: biological neural efficiency (neurons/kg vs body mass) and technological compute efficiency (cps/$ vs time). Clean source contracts are split into biology_neural_scaling.csv, hardware_efficiency.csv, ai_training_flops.csv, and foraging_lht.csv.",
   "fields": {
     "Category": "Panel category (Biology, Tech, LHT)",
     "Group": "Sub-group within category",
@@ -14,23 +14,33 @@
   "sources": [
     {
       "name": "Herculano-Houzel (2009)",
+      "id": "herculano_houzel",
       "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2776484/",
       "accessed": "2026-01",
       "notes": "Neuronal scaling rules, isotropic fractionator method"
     },
     {
       "name": "Kurzweil (2005, 2012)",
+      "id": "kurzweil",
       "url": "https://www.singularity.com/",
       "accessed": "2026-01",
       "notes": "Compute price-performance trends (75 quadrillion-fold increase)"
     },
     {
       "name": "Kleiber's Law",
+      "id": "kleiber",
       "url": "https://en.wikipedia.org/wiki/Kleiber%27s_law",
       "accessed": "2026-01",
       "notes": "Metabolic scaling (0.75 exponent)"
     }
   ],
+  "split_data_files": [
+    "biology_neural_scaling.csv",
+    "hardware_efficiency.csv",
+    "ai_training_flops.csv",
+    "foraging_lht.csv"
+  ],
+  "thesis": "Scaling laws create outliers when a system crosses a representational or energetic threshold.",
   "transformations": "Both panels log-log. Biology: neurons/kg vs body mass. Tech: cps/$ vs year.",
   "created": "2026-01",
   "author": "mschwar"

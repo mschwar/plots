@@ -80,7 +80,10 @@ def create_chart(df):
 
         for _, row in cat_df.iterrows():
             size = IMPACT_SIZES.get(row['Impact'], 50)
-            marker = 'd' if 'Speculative' in str(row['Impact']) or row['Year'] >= 2026 else 'o'
+            comparability = str(row.get('comparability_level', 'comparable_proxy'))
+            marker = '^' if comparability == 'rough_analogy' else ('s' if comparability == 'projection' else 'o')
+            if 'Speculative' in str(row['Impact']) or row['Year'] >= 2026:
+                marker = 'd'
             ax.scatter(row['Year'], row['Days_to_Adoption'],
                       c=color, s=size, marker=marker,
                       edgecolors='white', linewidths=1.5, zorder=3)
@@ -118,9 +121,14 @@ def create_chart(df):
 
     # Labels
     ax.set_xlabel('Year', fontsize=11, fontweight='bold')
-    ax.set_ylabel('Time to ~50M Users', fontsize=11, fontweight='bold')
-    ax.set_title('Time to Mass Adoption (1957–2026)',
+    ax.set_ylabel('Time-to-Scale Proxy', fontsize=11, fontweight='bold')
+    ax.set_title('Time-to-Scale Proxy Across Tech Paradigms (1957–2026)',
                 fontsize=14, fontweight='bold', pad=15)
+
+    ax.text(0.01, 0.02,
+            'Footnote: metric types differ (users, devices, accounts, organizations, developers). Marker shape flags rough analogies and projections.',
+            transform=ax.transAxes, fontsize=7, color='#555',
+            bbox=dict(boxstyle='round,pad=0.3', facecolor='white', edgecolor='#ddd', alpha=0.9))
 
     plt.tight_layout()
     return fig

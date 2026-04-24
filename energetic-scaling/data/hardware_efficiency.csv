@@ -1,0 +1,5 @@
+year,system,cps_per_dollar,impact,source_id,notes
+1939,Zeus II,6.5e-6,Low,kurzweil,Early baseline.
+1945,ENIAC,1e-4,Medium,kurzweil,Vacuum tube era.
+1971,Intel 4004,10,High,kurzweil,Microprocessor start.
+2024,NVIDIA B200,5e11,Transformative,kurzweil,Half trillion cps per dollar order-of-magnitude anchor.

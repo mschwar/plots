@@ -1,35 +1,59 @@
 {
   "title": "AI Compute Timeline",
-  "description": "Training FLOPs milestones for AI history, from vacuum tubes to frontier models (1900-2026).",
+  "description": "Training FLOPs milestones for AI history, from early electronic computing to frontier models. Observed, estimated, proxy, speculative, and projection rows are structurally separated.",
   "fields": {
-    "Year": "Year of milestone",
-    "Event": "Name of model/system",
-    "Category": "Era category (Early Compute, Neural Nets, Deep Learning, etc.)",
-    "Compute_FLOPs": "Estimated floating-point operations for training or compute",
-    "Parameters": "Model parameter count where applicable",
-    "Impact": "Historical impact level (Transformative, High, Medium, Speculative)"
+    "year": "Year of milestone",
+    "event": "Milestone or model/system name",
+    "category": "Era or capability category",
+    "value_numeric": "Numeric value plotted when applicable",
+    "value_low": "Lower uncertainty bound when applicable",
+    "value_high": "Upper uncertainty bound when applicable",
+    "value_unit": "Unit for value_numeric, such as training FLOPs or ops/sec proxy",
+    "estimate_status": "One of observed, estimated, proxy, speculative, projection",
+    "source_id": "Source identifier for auditable rows",
+    "confidence": "Qualitative confidence for the row",
+    "display_label": "Short label used in chart annotations",
+    "notes": "Audit notes and caveats"
   },
+  "estimate_status_values": [
+    "observed",
+    "estimated",
+    "proxy",
+    "speculative",
+    "projection"
+  ],
   "sources": [
     {
+      "id": "epoch",
       "name": "Epoch AI",
       "url": "https://epochai.org/",
       "accessed": "2026-01",
       "notes": "Primary source for training compute estimates"
     },
     {
+      "id": "owid",
       "name": "Our World in Data",
       "url": "https://ourworldindata.org/artificial-intelligence",
       "accessed": "2026-01",
       "notes": "Historical AI milestones"
     },
     {
+      "id": "kurzweil",
       "name": "Kurzweil (2005)",
       "url": "https://www.singularity.com/",
       "accessed": "2026-01",
-      "notes": "Early compute estimates, price-performance trends"
+      "notes": "Early compute and price-performance trend references"
+    },
+    {
+      "id": "source_review_needed",
+      "name": "Source review needed",
+      "url": "https://github.com/mschwar/plots",
+      "accessed": "2026-04",
+      "notes": "Estimate or projection retained for chart continuity but flagged for source review"
     }
   ],
-  "transformations": "Log10(FLOPs) for y-axis. Pre-2010 estimates are approximate (dashed line region).",
+  "transformations": "Log10 values for y-axis. Ops/sec proxies and no-unit milestones are visually separated from training FLOPs. Speculative and projection rows are marker-coded and can be hidden in the Plotly chart.",
   "created": "2026-01",
+  "last_updated": "2026-04-24",
   "author": "mschwar"
 }

@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scaling Civilization – Energy, Coordination, Memory, Replication</title>
+    <title>Scaling Civilization – Energy, Coordination, Memory, Replication, Latency</title>
     <link rel="stylesheet" href="../shared/site.css">
     <style>
         .lane-energy { color: #E67E22; }
         .lane-coord { color: #27AE60; }
         .lane-memory { color: #3498DB; }
         .lane-repl { color: #9B59B6; }
+        .lane-latency { color: #DC2626; }
     </style>
 </head>
 <body>
@@ -18,9 +19,9 @@
     </div>
 
     <h1>Scaling Civilization</h1>
-    <p class="subtitle">Energy, Coordination, Memory, Replication over Log-Time (1M Years → 2030+)</p>
+    <p class="subtitle">Energy, Coordination, Memory, Replication, and Latency over Log-Time (1M Years → 2030+)</p>
 
-    <a href="output/civilization_scaling_interactive.html">
+    <a href="output/civilization_scaling_interactive.html" aria-label="Open Civilization Scaling interactive plot">
         <img src="output/civilization_scaling_highres.png" alt="Civilization Scaling" class="main-image">
     </a>
 
@@ -37,7 +38,7 @@
     </div>
 
     <div class="description">
-        <h2>The Four Lanes</h2>
+        <h2>The Five Lanes</h2>
         <table>
             <thead>
                 <tr><th>Lane</th><th>Metric</th><th>Trend</th><th>Key Flips</th></tr>
@@ -47,11 +48,15 @@
                 <tr><td class="lane-coord"><strong>Coordination</strong></td><td>Max group</td><td>↑</td><td>Language → Writing → Print → Internet</td></tr>
                 <tr><td class="lane-memory"><strong>Memory</strong></td><td>bits/person</td><td>↑</td><td>Symbols → Writing → Print → AI</td></tr>
                 <tr><td class="lane-repl"><strong>Replication</strong></td><td>hrs/copy</td><td>↓</td><td>Scribes → Print → Digital → AI Gen</td></tr>
+                <tr><td class="lane-latency"><strong>Latency</strong></td><td>ms delay</td><td>↓</td><td>Walking → Telegraph → Fiber → Edge</td></tr>
             </tbody>
         </table>
 
         <h2>About</h2>
         <p>Multi-lane log-time timeline. Log x-axis compresses prehistory and expands modern acceleration. Phase flips mark where multiple lanes transition together.</p>
+
+        <h2>How to Read This Chart</h2>
+        <p>Energy, Coordination, and Memory improve upward. Replication time and Latency improve downward, so lower values indicate faster copying or communication. The lanes are not naturally comparable units; compare phase changes and direction, not raw magnitudes across lanes.</p>
     </div>
 
     <div class="companion">
