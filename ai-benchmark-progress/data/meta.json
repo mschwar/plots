@@ -1,0 +1,44 @@
+{
+  "title": "AI Benchmark Progress",
+  "description": "AI benchmark scores vs human baselines across MMLU, HumanEval, SWE-bench, and ARC-AGI (2019-2026). Shows the rapid progression of AI capabilities crossing and exceeding human-level performance.",
+  "fields": {
+    "Year": "Year of benchmark result",
+    "Benchmark": "Benchmark name (MMLU, HumanEval, SWE-bench, ARC-AGI)",
+    "Score": "Model score on the benchmark (percentage)",
+    "Human_Baseline": "Human performance baseline for comparison (percentage)",
+    "Model": "Model name that achieved the score",
+    "Organization": "Organization that developed the model",
+    "Category": "Capability category (Knowledge, Coding, Software Engineering, Reasoning)",
+    "Impact": "Historical impact level (Transformative, High, Medium)",
+    "Notes": "Additional context about the result"
+  },
+  "sources": [
+    {
+      "name": "Papers With Code",
+      "url": "https://paperswithcode.com/",
+      "accessed": "2026-01",
+      "notes": "Benchmark leaderboards and model results"
+    },
+    {
+      "name": "OpenAI",
+      "url": "https://openai.com/",
+      "accessed": "2026-01",
+      "notes": "GPT-4, o1, o3 series results"
+    },
+    {
+      "name": "Google DeepMind",
+      "url": "https://deepmind.google/",
+      "accessed": "2026-01",
+      "notes": "Gemini and Chinchilla results"
+    },
+    {
+      "name": "Anthropic",
+      "url": "https://www.anthropic.com/",
+      "accessed": "2026-01",
+      "notes": "Claude series results"
+    }
+  ],
+  "transformations": "Scores normalized to percentage. Human baselines shown as reference lines.",
+  "created": "2026-01",
+  "author": "mschwar"
+}
