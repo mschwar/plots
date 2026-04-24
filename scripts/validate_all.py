@@ -60,9 +60,9 @@ PLOTS = [
         'csv': 'data/energy_leverage_datapoints.csv',
         'meta': 'data/meta.json',
         'required_files': [
-            'export/energy_leverage_interactive.html',
-            'export/energy_leverage_highres.png',
-            'export/energy_leverage.svg',
+            'output/energy_leverage_interactive.html',
+            'output/energy_leverage_highres.png',
+            'output/energy_leverage.svg',
             'index.html',
         ]
     },
