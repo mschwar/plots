@@ -28,6 +28,7 @@ Status below reflects the current local verification pass.
 - `python scripts/check_links.py` - passed
 - `python scripts/check_accessibility_static.py` - passed
 - `python scripts/browser_smoke.py` - passed for homepage, dashboard, and AI Compute Timeline
+- Browser QA (desktop + mobile screenshots in `.gstack/qa-reports/screenshots/`) passed on homepage, dashboard, and AI Compute Timeline with no console errors
 - `python -m pytest tests -q` - passed
 
 ## Important Files and Directories
