@@ -23,6 +23,7 @@ The manifest is the source of truth for inventory, order, and published status. 
 - `scripts/generate_homepage.py`, `scripts/generate_readme_links.py`, `scripts/generate_sitemap.py`: generated site surfaces
 - `scripts/validate_repo.py`: repo-level validation entrypoint
 - `CURRENT_STATE.md`: current truth snapshot for humans and agents
+- `docs/agentic-overhaul/two-prompt-buildout-plan.md`: next-feature loop, branch contract, and missing-feature list
 
 ## Generated vs Hand-Authored
 

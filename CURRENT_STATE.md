@@ -66,6 +66,7 @@ Status below reflects the current local verification pass.
 
 ## Immediate Next Moves
 
-1. When changing data or plot generators, rerun `python build_all.py`.
-2. Run `python scripts/validate_repo.py --check` after any substantive change.
-3. Keep `CURRENT_STATE.md` and `docs/agentic-overhaul/2026-05-audit.md` up to date when the repo shape changes.
+1. Follow `docs/agentic-overhaul/two-prompt-buildout-plan.md` for the next feature branch.
+2. Run `python build_all.py` when changing data or plot generators.
+3. Run `python scripts/validate_repo.py --check` after any substantive change.
+4. Keep `CURRENT_STATE.md` and `docs/agentic-overhaul/2026-05-audit.md` up to date when the repo shape changes.
