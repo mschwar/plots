@@ -2,7 +2,7 @@
 
 Audit date: 2026-05-19
 
-This repo is a manifest-driven static atlas of plot pages, generated homepage content, generated README inventory text, a shared dashboard, and Python-based plot generators. The manifest is the inventory source of truth; data and metadata live beside each plot; generated outputs live under each plot's `output/` directory.
+This repo is a manifest-driven static atlas of plot pages, generated homepage content, generated README inventory text, a shared dashboard, a browser smoke harness, and Python-based plot generators. The manifest is the inventory source of truth; data and metadata live beside each plot; generated outputs live under each plot's `output/` directory.
 
 ## Confirmed Working Pieces
 
@@ -12,13 +12,14 @@ This repo is a manifest-driven static atlas of plot pages, generated homepage co
 - The repo-level validator exists at `scripts/validate_repo.py`.
 - The test suite includes bootstrap smoke checks for the build and validator entrypoints.
 - The shared accessibility and link-check scripts are present.
+- The browser smoke harness exists at `scripts/browser_smoke.py`.
 
 ## Commands
 
 Status below reflects the current local verification pass.
 
 - `python -m pip install -r requirements.txt` - passed
-- `python build_all.py` - passed
+- `uv run --with numpy --with pandas --with matplotlib --with plotly --with scipy python build_all.py` - passed and refreshed generated outputs
 - `python scripts/generate_homepage.py` - passed
 - `python scripts/generate_readme_links.py` - passed
 - `python scripts/generate_sitemap.py` - passed
@@ -26,6 +27,8 @@ Status below reflects the current local verification pass.
 - `python scripts/validate_repo.py --check` - passed
 - `python scripts/check_links.py` - passed
 - `python scripts/check_accessibility_static.py` - passed
+- `python scripts/browser_smoke.py` - passed for homepage, dashboard, and AI Compute Timeline
+- Browser QA (desktop + mobile screenshots in `.gstack/qa-reports/screenshots/`) passed on homepage, dashboard, and AI Compute Timeline with no console errors
 - `python -m pytest tests -q` - passed
 
 ## Important Files and Directories
@@ -59,14 +62,15 @@ Status below reflects the current local verification pass.
 
 ## Known Risks
 
-- The dashboard loads D3 from a CDN.
+- The dashboard loads D3 from a CDN, so the browser smoke harness is a preflight rather than an offline-safe guarantee.
 - Some plot rows remain speculative or projection-based and should not be reworded into facts without source review.
 - Generated outputs need to be rebuilt after data or source edits to stay fresh.
 - The repo depends on the Python packages listed in `requirements.txt`.
 
 ## Immediate Next Moves
 
-1. Follow `docs/agentic-overhaul/two-prompt-buildout-plan.md` for the next feature branch.
-2. Run `python build_all.py` when changing data or plot generators.
-3. Run `python scripts/validate_repo.py --check` after any substantive change.
-4. Keep `CURRENT_STATE.md` and `docs/agentic-overhaul/2026-05-audit.md` up to date when the repo shape changes.
+1. Use `python scripts/browser_smoke.py --html /tmp/browser-smoke/index.html` before browser QA for the homepage, dashboard, and AI Compute Timeline.
+2. Follow `docs/agentic-overhaul/two-prompt-buildout-plan.md` for the next feature branch.
+3. Run `python build_all.py` when changing data or plot generators.
+4. Run `python scripts/validate_repo.py --check` after any substantive change.
+5. Keep `CURRENT_STATE.md` and `docs/agentic-overhaul/2026-05-audit.md` up to date when the repo shape changes.

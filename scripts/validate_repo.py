@@ -27,6 +27,7 @@ REQUIRED_FILES = [
     "plots_manifest.json",
     "build_all.py",
     "requirements.txt",
+    "scripts/browser_smoke.py",
     "scripts/validate_repo.py",
     "docs/agentic-overhaul/2026-05-audit.md",
     ".github/workflows/validate.yml",
