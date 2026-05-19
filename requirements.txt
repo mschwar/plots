@@ -5,5 +5,8 @@ matplotlib>=3.5.0
 plotly>=5.0.0
 scipy>=1.7.0
 
+# Test dependency for the repo validation workflow and local checks
+pytest>=9.0.0
+
 # Optional: for static image export from Plotly
 # kaleido>=0.2.0
