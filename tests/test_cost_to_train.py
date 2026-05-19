@@ -4,6 +4,7 @@ import csv
 import json
 import os
 import subprocess
+import sys
 
 PLOT_DIR = "cost-to-train"
 DATA_DIR = os.path.join(PLOT_DIR, "data")
@@ -80,7 +81,7 @@ class TestMatplotlibGenerator:
 
     def test_generator_runs_and_creates_outputs(self):
         result = subprocess.run(
-            ["python3", "cost_to_train.py"],
+            [sys.executable, "cost_to_train.py"],
             cwd=SRC_DIR,
             capture_output=True,
             text=True,
@@ -97,7 +98,7 @@ class TestPlotlyGenerator:
 
     def test_plotly_generator_runs_and_creates_output(self):
         result = subprocess.run(
-            ["python3", "cost_to_train_plotly.py"],
+            [sys.executable, "cost_to_train_plotly.py"],
             cwd=SRC_DIR,
             capture_output=True,
             text=True,

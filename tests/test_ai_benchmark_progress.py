@@ -3,6 +3,7 @@
 import csv
 import json
 import os
+import sys
 import pytest
 
 PLOT_DIR = "ai-benchmark-progress"
@@ -181,7 +182,7 @@ class TestGenerator:
     def test_generator_runs_and_creates_outputs(self):
         import subprocess
         result = subprocess.run(
-            ["python3", "benchmark_progress.py"],
+            [sys.executable, "benchmark_progress.py"],
             cwd=SRC_DIR,
             capture_output=True,
             text=True,
@@ -202,7 +203,7 @@ class TestPlotlyGenerator:
     def test_plotly_generator_runs_and_creates_output(self):
         import subprocess
         result = subprocess.run(
-            ["python3", "benchmark_progress_plotly.py"],
+            [sys.executable, "benchmark_progress_plotly.py"],
             cwd=SRC_DIR,
             capture_output=True,
             text=True,

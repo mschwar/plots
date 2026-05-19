@@ -177,9 +177,11 @@ python -m pip install -r requirements.txt
 python build_all.py
 python scripts/generate_homepage.py
 python scripts/generate_readme_links.py
-python scripts/validate_all.py
+python scripts/generate_sitemap.py
+python scripts/validate_repo.py --check
 python scripts/check_links.py
 python scripts/check_accessibility_static.py
+python -m pytest tests -q
 ```
 
 ## Adding a New Plot

@@ -8,7 +8,13 @@ import sys
 import subprocess
 from pathlib import Path
 
-from scripts.manifest_utils import plot_entries
+ROOT = Path(__file__).resolve().parent
+SCRIPTS_DIR = ROOT / "scripts"
+
+if str(SCRIPTS_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPTS_DIR))
+
+from manifest_utils import plot_entries
 
 
 def run_script(script_path: Path, plot_name: str) -> bool:
@@ -68,7 +74,7 @@ def main():
     print("Building All Plots")
     print("=" * 60)
 
-    root = Path(__file__).parent
+    root = ROOT
     total_success = 0
     total_failed = 0
 

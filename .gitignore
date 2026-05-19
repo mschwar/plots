@@ -22,3 +22,5 @@ Thumbs.db
 # Temp files
 *.tmp
 *.bak
+.pytest_cache/
+pytest-cache-files-*/

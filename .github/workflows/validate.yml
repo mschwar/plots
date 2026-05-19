@@ -18,6 +18,7 @@ jobs:
       - run: python scripts/generate_homepage.py
       - run: python scripts/generate_readme_links.py
       - run: python scripts/generate_sitemap.py
-      - run: python scripts/validate_all.py
+      - run: python scripts/validate_repo.py --check
       - run: python scripts/check_links.py
       - run: python scripts/check_accessibility_static.py
+      - run: python -m pytest tests -q
