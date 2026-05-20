@@ -4,14 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Unified Dashboard — Exponential Progress</title>
-  <meta name="description" content="Manifest-driven dashboard for the published Exponential Progress Atlas timelines.">
+  <meta name="description" content="Manifest-driven dashboard for the published Exponential Progress Atlas timelines. Loads from local files only.">
   <link rel="stylesheet" href="dashboard.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+  <script defer src="dashboard.js"></script>
 </head>
 <body>
   <h1>Unified Dashboard</h1>
-  <p class="subtitle">Published Exponential Progress Atlas entries on one synchronized manifest-driven view.</p>
+  <p class="subtitle">Published Exponential Progress Atlas entries on one synchronized manifest-driven view. The dashboard is offline-safe and reads only local manifest and CSV files.</p>
   <div id="dashboard-container"></div>
-  <script src="dashboard.js"></script>
 </body>
 </html>

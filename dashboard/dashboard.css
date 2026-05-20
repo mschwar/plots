@@ -15,11 +15,22 @@ h1 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.subtitle { color: #6b7280; font-size: 0.9rem; margin-bottom: 28px; }
+.subtitle { color: #6b7280; font-size: 0.9rem; margin-bottom: 18px; }
+.dashboard-notice {
+  max-width: 1400px;
+  margin: 0 auto 18px;
+  padding: 12px 14px;
+  border: 1px solid #2d3148;
+  border-radius: 10px;
+  background: #161922;
+  color: #cbd5e1;
+  font-size: 0.93rem;
+}
 #dashboard-container {
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
+  overflow-x: auto;
 }
 .lane {
   margin-bottom: 20px;

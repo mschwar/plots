@@ -2,7 +2,7 @@
 
 This repo is already in the self-orienting, self-validating state. The remaining work should be done in small, independently mergeable features that fit a two-prompt loop:
 
-Completed in this branch: item 1, the browser smoke harness for homepage + dashboard + one representative plot. The next unfinished item is order 2, offline-safe dashboard loading.
+Completed in this branch: item 2, offline-safe dashboard loading. Item 3 is now the next unfinished item.
 
 1. Build prompt: create a feature branch, implement one feature, add or update tests, update docs, commit, and push.
 2. QA prompt: open the branch in the browser, take screenshots, verify behavior, update docs if needed, commit, push, and merge.
