@@ -175,15 +175,15 @@ function loadCSV(url) {
 }
 
 function parseYear(row) {
-  const raw = row.year || row.Year || row.Years_Ago || row.date;
-  if (!raw) {
+  const raw = row.year ?? row.Year ?? row.Years_Ago ?? row.date;
+  if (raw === null || raw === undefined || raw === '') {
     return null;
   }
-  if (row.Years_Ago) {
-    const yearsAgo = Number.parseFloat(raw);
+  if (row.Years_Ago !== undefined && row.Years_Ago !== null && row.Years_Ago !== '') {
+    const yearsAgo = Number.parseFloat(String(raw).trim());
     return Number.isFinite(yearsAgo) ? 2026 - yearsAgo : null;
   }
-  const parsed = Number.parseFloat(String(raw).slice(0, 4));
+  const parsed = Number.parseFloat(String(raw).trim());
   return Number.isFinite(parsed) ? parsed : null;
 }
 

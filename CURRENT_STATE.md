@@ -64,7 +64,7 @@ Status below reflects the current local verification pass.
 
 ## Known Risks
 
-- The dashboard loads D3 from a CDN, so the browser smoke harness is a preflight rather than an offline-safe guarantee.
+- The dashboard is offline-safe and loads local manifest/CSV assets instead of a remote D3 CDN.
 - Some plot rows remain speculative or projection-based and should not be reworded into facts without source review.
 - Generated outputs need to be rebuilt after data or source edits to stay fresh.
 - The repo depends on the Python packages listed in `requirements.txt`.
@@ -79,7 +79,7 @@ Status below reflects the current local verification pass.
 
 ## Handoff Note
 
-- Changed: the unified dashboard now loads only local assets and renders with inline SVG instead of a remote D3 CDN.
-- Verified by: `python -m pytest tests/test_dashboard.py tests/test_browser_smoke.py -q`, `python scripts/browser_smoke.py`, and browser QA after serving the repo locally.
-- Remaining risk: the browser smoke harness is still a preflight check; the real browser pass remains the proof for visual behavior.
+- Changed: the unified dashboard now loads only local assets and renders with inline SVG instead of a remote D3 CDN; the year parser now preserves zero-valued years and full-width year strings.
+- Verified by: `python -m pytest tests/test_dashboard.py tests/test_dashboard_year_parsing.py tests/test_browser_smoke.py -q`, `python scripts/browser_smoke.py`, and browser QA screenshots on the live Pages site.
+- Evidence: `.gstack/qa-reports/screenshots/dashboard-desktop.png`, `.gstack/qa-reports/screenshots/dashboard-mobile.png`, `.gstack/qa-reports/screenshots/homepage-desktop.png`.
 - Next feature: provenance coverage for speculative rows.
