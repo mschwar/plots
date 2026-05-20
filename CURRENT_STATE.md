@@ -13,6 +13,8 @@ This repo is a manifest-driven static atlas of plot pages, generated homepage co
 - The test suite includes bootstrap smoke checks for the build and validator entrypoints.
 - The shared accessibility and link-check scripts are present.
 - The browser smoke harness exists at `scripts/browser_smoke.py`.
+- The unified dashboard loads only local manifest/CSV files and no longer depends on a remote runtime CDN.
+
 
 ## Commands
 
@@ -62,7 +64,7 @@ Status below reflects the current local verification pass.
 
 ## Known Risks
 
-- The dashboard loads D3 from a CDN, so the browser smoke harness is a preflight rather than an offline-safe guarantee.
+- The dashboard is offline-safe and loads local manifest/CSV assets instead of a remote D3 CDN.
 - Some plot rows remain speculative or projection-based and should not be reworded into facts without source review.
 - Generated outputs need to be rebuilt after data or source edits to stay fresh.
 - The repo depends on the Python packages listed in `requirements.txt`.
@@ -74,3 +76,10 @@ Status below reflects the current local verification pass.
 3. Run `python build_all.py` when changing data or plot generators.
 4. Run `python scripts/validate_repo.py --check` after any substantive change.
 5. Keep `CURRENT_STATE.md` and `docs/agentic-overhaul/2026-05-audit.md` up to date when the repo shape changes.
+
+## Handoff Note
+
+- Changed: the unified dashboard now loads only local assets and renders with inline SVG instead of a remote D3 CDN; the year parser now preserves zero-valued years and full-width year strings.
+- Verified by: `python -m pytest tests/test_dashboard.py tests/test_dashboard_year_parsing.py tests/test_browser_smoke.py -q`, `python scripts/browser_smoke.py`, and browser QA screenshots on the live Pages site.
+- Evidence: `.gstack/qa-reports/screenshots/dashboard-desktop.png`, `.gstack/qa-reports/screenshots/dashboard-mobile.png`, `.gstack/qa-reports/screenshots/homepage-desktop.png`.
+- Next feature: provenance coverage for speculative rows.

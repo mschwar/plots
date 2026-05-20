@@ -1,40 +1,35 @@
 """Tests for unified dashboard structure."""
 
-import os
+from pathlib import Path
 
-DASHBOARD_DIR = "dashboard"
+DASHBOARD_DIR = Path("dashboard")
 
 
 class TestDashboardStructure:
     def test_dashboard_directory_exists(self):
-        assert os.path.isdir(DASHBOARD_DIR)
+        assert DASHBOARD_DIR.is_dir()
 
     def test_index_html_exists(self):
-        assert os.path.isfile(os.path.join(DASHBOARD_DIR, "index.html"))
+        assert (DASHBOARD_DIR / "index.html").is_file()
 
     def test_dashboard_js_exists(self):
-        assert os.path.isfile(os.path.join(DASHBOARD_DIR, "dashboard.js"))
+        assert (DASHBOARD_DIR / "dashboard.js").is_file()
 
     def test_dashboard_css_exists(self):
-        assert os.path.isfile(os.path.join(DASHBOARD_DIR, "dashboard.css"))
+        assert (DASHBOARD_DIR / "dashboard.css").is_file()
 
-    def test_index_html_links_d3(self):
-        with open(os.path.join(DASHBOARD_DIR, "index.html"), "r") as f:
-            content = f.read()
-        assert "d3" in content.lower()
-
-    def test_index_html_links_dashboard_js(self):
-        with open(os.path.join(DASHBOARD_DIR, "index.html"), "r") as f:
-            content = f.read()
+    def test_index_html_uses_only_local_assets(self):
+        content = (DASHBOARD_DIR / "index.html").read_text()
+        lowered = content.lower()
+        assert "https://" not in lowered
+        assert "http://" not in lowered
         assert "dashboard.js" in content
-
-    def test_index_html_links_dashboard_css(self):
-        with open(os.path.join(DASHBOARD_DIR, "index.html"), "r") as f:
-            content = f.read()
         assert "dashboard.css" in content
+        assert "offline-safe" in lowered
 
     def test_dashboard_js_references_csv_data(self):
-        with open(os.path.join(DASHBOARD_DIR, "dashboard.js"), "r") as f:
-            content = f.read()
-        # Should reference at least one plot CSV
-        assert ".csv" in content
+        content = (DASHBOARD_DIR / "dashboard.js").read_text()
+        # Should reference the manifest and local CSV loading path.
+        assert "plots_manifest.json" in content
+        assert "loadCSV" in content
+        assert "../" in content
